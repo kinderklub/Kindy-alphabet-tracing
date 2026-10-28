@@ -1,0 +1,2238 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Kinder Klub - Magical Alphabet Garden Tracing</title>
+  
+  <!-- Quicksand font for entire UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Quicksand', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              pink: '#FF6584',
+              pinkLight: '#FFEDF2',
+              yellow: '#FFD166',
+              yellowWarm: '#FFAA00',
+              mint: '#06D6A0',
+              mintLight: '#E8FAF4',
+              sky: '#38BDF8',
+              blue: '#118AB2',
+              purple: '#9B5DE5',
+              purpleLight: '#F3E8FF',
+              navy: '#073B4C',
+              peach: '#FF9E79'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    * {
+      font-family: 'Quicksand', sans-serif !important;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      box-sizing: border-box;
+    }
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      color: #073B4C;
+      background: #7FD5FA;
+    }
+
+    /* Soft 3D Bubble Buttons with High Contrast */
+    .btn-bubble {
+      transition: all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15), 0 10px 18px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    .btn-bubble:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 rgba(0, 0, 0, 0.16), 0 14px 20px rgba(0, 0, 0, 0.12);
+    }
+    .btn-bubble:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Start Button High Contrast */
+    .btn-play-primary {
+      background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%) !important;
+      color: #FFFFFF !important;
+      border: 3px solid #34D399 !important;
+      box-shadow: 0 7px 0 #065F46, 0 12px 22px rgba(5, 150, 105, 0.4) !important;
+    }
+    .btn-play-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 9px 0 #065F46, 0 16px 26px rgba(5, 150, 105, 0.5) !important;
+    }
+    .btn-play-primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #065F46, 0 5px 10px rgba(5, 150, 105, 0.3) !important;
+    }
+
+    /* Glassmorphic Cards */
+    .glass-garden-card {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 18px 40px rgba(17, 138, 178, 0.18), 0 6px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    @keyframes koalaBlink {
+      0%, 95%, 100% { transform: scaleY(1); }
+      97.5% { transform: scaleY(0.1); }
+    }
+    @keyframes koalaBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+    @keyframes koalaWaveArm {
+      0%, 100% { transform: rotate(0deg); }
+      30% { transform: rotate(24deg); }
+      70% { transform: rotate(-14deg); }
+    }
+    @keyframes koalaCheerJump {
+      0%, 100% { transform: translateY(0) scale(1); }
+      35% { transform: translateY(-18px) scale(1.1) rotate(5deg); }
+      70% { transform: translateY(-8px) scale(1.04) rotate(-5deg); }
+    }
+    .animate-koala-idle {
+      animation: koalaBounce 2.6s ease-in-out infinite;
+    }
+    .animate-koala-happy {
+      animation: koalaCheerJump 0.8s ease-in-out infinite;
+    }
+    .koala-eye {
+      transform-origin: center;
+      animation: koalaBlink 4.2s ease-in-out infinite;
+    }
+    .koala-paw-wave {
+      transform-origin: bottom center;
+      animation: koalaWaveArm 1.3s ease-in-out infinite;
+    }
+
+    /* Rainbow and Tree Animations */
+    @keyframes rainbowPulse {
+      0%, 100% {
+        transform: scale(1) translateY(0);
+        filter: drop-shadow(0 4px 12px rgba(255, 101, 132, 0.25));
+      }
+      50% {
+        transform: scale(1.025) translateY(-6px);
+        filter: drop-shadow(0 8px 22px rgba(56, 189, 248, 0.35));
+      }
+    }
+    .animate-rainbow {
+      animation: rainbowPulse 6s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+
+    @keyframes treeSwayLeft {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-4.5deg) scaleX(0.98); }
+    }
+    @keyframes treeSwayRight {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg) scaleX(0.98); }
+    }
+    @keyframes leafDrift {
+      0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.9; }
+      80% { opacity: 0.8; }
+      100% { transform: translate(25px, 65px) rotate(180deg); opacity: 0; }
+    }
+    .tree-sway-left {
+      transform-origin: bottom center;
+      animation: treeSwayLeft 4.5s ease-in-out infinite;
+    }
+    .tree-sway-right {
+      transform-origin: bottom center;
+      animation: treeSwayRight 5.2s ease-in-out infinite;
+    }
+    .leaf-drift-1 { animation: leafDrift 4.8s infinite linear; }
+    .leaf-drift-2 { animation: leafDrift 6.2s infinite linear 2s; }
+
+    @keyframes cloudFloatLeft {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(24px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes cloudFloatRight {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-28px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes butterflyFlutter {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25% { transform: translate(14px, -18px) rotate(8deg) scale(1.05); }
+      50% { transform: translate(28px, -6px) rotate(-6deg) scale(0.95); }
+      75% { transform: translate(12px, -24px) rotate(6deg) scale(1.02); }
+      100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    }
+    @keyframes flowerSway {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(6deg); }
+    }
+
+    .cloud-slow-1 { animation: cloudFloatLeft 8s ease-in-out infinite; }
+    .cloud-slow-2 { animation: cloudFloatRight 11s ease-in-out infinite; }
+    .butterfly-anim { animation: butterflyFlutter 6s ease-in-out infinite; }
+    .flower-sway { transform-origin: bottom center; animation: flowerSway 3.2s ease-in-out infinite; }
+    .flower-sway-rev { transform-origin: bottom center; animation: flowerSway 3.8s ease-in-out infinite reverse; }
+
+    #tracing-canvas {
+      touch-action: none;
+      border-radius: 1.75rem;
+      background: radial-gradient(circle at 50% 45%, #FFFFFF 0%, #F5FBFF 100%);
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen justify-between relative overflow-x-hidden select-none">
+
+  <!-- Layered Animated Background -->
+  <div class="fixed inset-0 pointer-events-none -z-20 overflow-hidden">
+    <!-- Sky Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#7CD2FA] via-[#B6E7FE] to-[#DCF3FE]"></div>
+
+    <!-- Distant Sun Glow -->
+    <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full bg-yellow-200/50 blur-3xl"></div>
+
+    <!-- PROMINENT ANIMATED SVG RAINBOW -->
+    <div class="absolute top-2 md:top-6 left-1/2 -translate-x-1/2 w-[340px] sm:w-[480px] md:w-[620px] animate-rainbow opacity-90 z-0">
+      <svg viewBox="0 0 500 240" fill="none" class="w-full drop-shadow-md">
+        <defs>
+          <linearGradient id="rainbowGradRed" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF5376"/>
+            <stop offset="50%" stop-color="#FF7A95"/>
+            <stop offset="100%" stop-color="#FF5376"/>
+          </linearGradient>
+          <linearGradient id="rainbowGradOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF9233"/>
+            <stop offset="50%" stop-color="#FFA857"/>
+            <stop offset="100%" stop-color="#FF9233"/>
+          </linearGradient>
+          <linearGradient id="rainbowGradYellow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FFD147"/>
+            <stop offset="50%" stop-color="#FFE07A"/>
+            <stop offset="100%" stop-color="#FFD147"/>
+          </linearGradient>
+          <linearGradient id="rainbowGradGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00D09C"/>
+            <stop offset="50%" stop-color="#34EAB9"/>
+            <stop offset="100%" stop-color="#00D09C"/>
+          </linearGradient>
+          <linearGradient id="rainbowGradBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38BDF8"/>
+            <stop offset="50%" stop-color="#7DD3FC"/>
+            <stop offset="100%" stop-color="#38BDF8"/>
+          </linearGradient>
+          <linearGradient id="rainbowGradPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#A855F7"/>
+            <stop offset="50%" stop-color="#C084FC"/>
+            <stop offset="100%" stop-color="#A855F7"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Arcs -->
+        <path d="M 40,240 A 210,210 0 0,1 460,240" stroke="url(#rainbowGradRed)" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 54,240 A 196,196 0 0,1 446,240" stroke="url(#rainbowGradOrange)" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 68,240 A 182,182 0 0,1 432,240" stroke="url(#rainbowGradYellow)" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 82,240 A 168,168 0 0,1 418,240" stroke="url(#rainbowGradGreen)" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 96,240 A 154,154 0 0,1 404,240" stroke="url(#rainbowGradBlue)" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 110,240 A 140,140 0 0,1 390,240" stroke="url(#rainbowGradPurple)" stroke-width="14" stroke-linecap="round"/>
+
+        <!-- Left Cloud Anchor with Cute Chibi Face -->
+        <g transform="translate(10, 185)">
+          <path d="M 15,42 Q 0,42 2,28 Q 0,14 18,14 Q 24,0 44,4 Q 60,-5 72,10 Q 88,6 92,24 Q 100,32 94,42 Z" fill="#FFFFFF" filter="drop-shadow(0 3px 6px rgba(0,0,0,0.08))"/>
+          <circle cx="40" cy="24" r="2.2" fill="#073B4C"/>
+          <circle cx="58" cy="24" r="2.2" fill="#073B4C"/>
+          <path d="M 46,28 Q 49,32 52,28" stroke="#073B4C" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <circle cx="34" cy="27" r="2.8" fill="#FFA5BA" opacity="0.75"/>
+          <circle cx="64" cy="27" r="2.8" fill="#FFA5BA" opacity="0.75"/>
+        </g>
+
+        <!-- Right Cloud Anchor with Cute Chibi Face -->
+        <g transform="translate(390, 185)">
+          <path d="M 15,42 Q 0,42 2,28 Q 0,14 18,14 Q 24,0 44,4 Q 60,-5 72,10 Q 88,6 92,24 Q 100,32 94,42 Z" fill="#FFFFFF" filter="drop-shadow(0 3px 6px rgba(0,0,0,0.08))"/>
+          <circle cx="40" cy="24" r="2.2" fill="#073B4C"/>
+          <circle cx="58" cy="24" r="2.2" fill="#073B4C"/>
+          <path d="M 46,28 Q 49,32 52,28" stroke="#073B4C" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <circle cx="34" cy="27" r="2.8" fill="#FFA5BA" opacity="0.75"/>
+          <circle cx="64" cy="27" r="2.8" fill="#FFA5BA" opacity="0.75"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Animated Clouds -->
+    <div class="absolute top-8 left-4 cloud-slow-1 opacity-90 hidden sm:block">
+      <svg class="w-32 md:w-40 text-white drop-shadow-sm" viewBox="0 0 120 60" fill="currentColor">
+        <path d="M25,50 Q10,50 12,35 Q10,20 28,20 Q35,5 55,10 Q70,-2 85,12 Q105,8 108,28 Q118,35 110,50 Z"/>
+      </svg>
+    </div>
+    <div class="absolute top-16 right-4 cloud-slow-2 opacity-85 hidden sm:block">
+      <svg class="w-36 md:w-44 text-white drop-shadow-sm" viewBox="0 0 120 60" fill="currentColor">
+        <path d="M20,50 Q8,48 10,32 Q12,18 28,18 Q40,4 60,10 Q76,-2 92,14 Q108,12 110,30 Q118,42 105,50 Z"/>
+      </svg>
+    </div>
+
+    <!-- Butterflies -->
+    <div class="absolute top-1/4 left-8 butterfly-anim z-0">
+      <svg class="w-7 h-7 text-pink-400 drop-shadow" viewBox="0 0 40 40" fill="currentColor">
+        <path d="M20,20 C10,5 0,10 5,22 C8,30 20,22 20,20 Z" fill="#FF6584"/>
+        <path d="M20,20 C30,5 40,10 35,22 C32,30 20,22 20,20 Z" fill="#FF8FA3"/>
+        <circle cx="20" cy="20" r="2.5" fill="#073B4C"/>
+      </svg>
+    </div>
+    <div class="absolute top-1/3 right-10 butterfly-anim z-0" style="animation-delay: 3s;">
+      <svg class="w-6 h-6 text-amber-400 drop-shadow" viewBox="0 0 40 40" fill="currentColor">
+        <path d="M20,20 C10,5 0,10 5,22 C8,30 20,22 20,20 Z" fill="#FFD166"/>
+        <path d="M20,20 C30,5 40,10 35,22 C32,30 20,22 20,20 Z" fill="#FFAA00"/>
+        <circle cx="20" cy="20" r="2" fill="#073B4C"/>
+      </svg>
+    </div>
+
+    <!-- Layered Rolling Hills -->
+    <div class="absolute bottom-0 inset-x-0 h-44 md:h-64 pointer-events-none">
+      <svg class="absolute bottom-12 inset-x-0 w-full h-36" preserveAspectRatio="none" viewBox="0 0 1000 200">
+        <path d="M0,130 Q250,50 500,110 T1000,90 L1000,200 L0,200 Z" fill="#6EE7B7" opacity="0.45"/>
+        <path d="M0,110 Q220,160 550,80 T1000,120 L1000,200 L0,200 Z" fill="#86EFAC" opacity="0.55"/>
+      </svg>
+      <svg class="absolute bottom-0 inset-x-0 w-full h-36" preserveAspectRatio="none" viewBox="0 0 1000 200">
+        <path d="M0,80 Q300,10 600,70 T1000,50 L1000,200 L0,200 Z" fill="#4ADE80" opacity="0.9"/>
+        <path d="M0,100 Q200,50 480,90 T1000,80 L1000,200 L0,200 Z" fill="#22C55E"/>
+      </svg>
+    </div>
+
+    <!-- Animated Chibi Garden Trees -->
+    <div class="absolute bottom-10 left-2 sm:left-8 md:left-14 w-28 sm:w-36 md:w-44 h-44 sm:h-56 md:h-64 z-0 pointer-events-none">
+      <svg class="w-full h-full tree-sway-left" viewBox="0 0 160 220" fill="none">
+        <defs>
+          <linearGradient id="treeTrunkGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#8B5A2B"/>
+            <stop offset="50%" stop-color="#A76D38"/>
+            <stop offset="100%" stop-color="#6F4518"/>
+          </linearGradient>
+          <radialGradient id="treeCanopy1" cx="40%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#6EE7B7"/>
+            <stop offset="65%" stop-color="#10B981"/>
+            <stop offset="100%" stop-color="#059669"/>
+          </radialGradient>
+          <radialGradient id="treeCanopy2" cx="35%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#A7F3D0"/>
+            <stop offset="70%" stop-color="#34D399"/>
+            <stop offset="100%" stop-color="#059669"/>
+          </radialGradient>
+        </defs>
+        <path d="M 68,120 Q 75,170 60,215 Q 80,215 88,215 Q 92,165 96,120 Z" fill="url(#treeTrunkGrad)"/>
+        <path d="M 86,160 Q 110,145 116,132" stroke="#7A4E20" stroke-width="5" stroke-linecap="round"/>
+        <path d="M 72,175 Q 52,162 48,150" stroke="#7A4E20" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="80" cy="90" r="44" fill="url(#treeCanopy1)"/>
+        <circle cx="50" cy="85" r="32" fill="url(#treeCanopy2)"/>
+        <circle cx="110" cy="85" r="32" fill="url(#treeCanopy2)"/>
+        <circle cx="80" cy="55" r="36" fill="url(#treeCanopy1)"/>
+        <circle cx="56" cy="70" r="7" fill="#EF4444" filter="drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/>
+        <circle cx="54" cy="68" r="2" fill="#FFFFFF"/>
+        <circle cx="98" cy="65" r="7" fill="#EF4444" filter="drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/>
+        <circle cx="96" cy="63" r="2" fill="#FFFFFF"/>
+        <circle cx="80" cy="98" r="6.5" fill="#EF4444" filter="drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/>
+      </svg>
+      <div class="absolute top-20 left-10 w-3 h-3 rounded-full bg-emerald-400 leaf-drift-1"></div>
+    </div>
+
+    <div class="absolute bottom-10 right-2 sm:right-8 md:right-14 w-28 sm:w-36 md:w-44 h-44 sm:h-56 md:h-64 z-0 pointer-events-none">
+      <svg class="w-full h-full tree-sway-right" viewBox="0 0 160 220" fill="none">
+        <defs>
+          <radialGradient id="pinkCanopy" cx="40%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#FDE047"/>
+            <stop offset="50%" stop-color="#4ADE80"/>
+            <stop offset="100%" stop-color="#15803D"/>
+          </radialGradient>
+        </defs>
+        <path d="M 85,125 Q 82,170 95,215 Q 75,215 68,215 Q 74,165 72,125 Z" fill="#6F4518"/>
+        <path d="M 75,165 Q 52,150 48,138" stroke="#5C3810" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="80" cy="88" r="46" fill="url(#pinkCanopy)"/>
+        <circle cx="48" cy="80" r="30" fill="#22C55E"/>
+        <circle cx="112" cy="80" r="30" fill="#22C55E"/>
+        <circle cx="80" cy="50" r="34" fill="#86EFAC"/>
+        <circle cx="60" cy="65" r="6.5" fill="#FACC15"/>
+        <circle cx="102" cy="72" r="6.5" fill="#FACC15"/>
+      </svg>
+      <div class="absolute top-24 right-8 w-2.5 h-2.5 rounded-full bg-lime-300 leaf-drift-2"></div>
+    </div>
+
+    <!-- Foreground Garden Flowers -->
+    <div class="absolute bottom-0 inset-x-0 h-16 pointer-events-none flex justify-between items-end px-4 md:px-16 max-w-6xl mx-auto z-0">
+      <div class="flex items-end gap-2 flower-sway">
+        <svg class="w-8 h-12 text-pink-500" viewBox="0 0 40 60" fill="none">
+          <path d="M20,60 Q18,35 20,20" stroke="#15803D" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="20" cy="14" r="7" fill="#FF6584"/>
+          <circle cx="13" cy="17" r="6" fill="#FF8FA3"/>
+          <circle cx="27" cy="17" r="6" fill="#FF8FA3"/>
+          <circle cx="20" cy="20" r="5" fill="#FFD166"/>
+        </svg>
+      </div>
+      <div class="flex items-end gap-2 flower-sway-rev">
+        <svg class="w-8 h-12 text-purple-400" viewBox="0 0 40 60" fill="none">
+          <path d="M20,60 Q16,40 20,22" stroke="#15803D" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="20" cy="18" r="8" fill="#C084FC"/>
+          <circle cx="20" cy="18" r="4.5" fill="#FEF08A"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="w-full max-w-4xl mx-auto px-4 pt-3 flex items-center justify-between z-30">
+    <div class="flex items-center gap-2">
+      <!-- App Brand Capsule -->
+      <div class="flex items-center gap-2 bg-white/95 backdrop-blur shadow-md border-2 border-pink-300 rounded-full px-3 py-1">
+        <span class="w-6 h-6 flex items-center justify-center flex-shrink-0" id="brand-koala-icon"></span>
+        <span class="font-extrabold text-sm md:text-base text-pink-600 tracking-wide">Kinder Klub</span>
+      </div>
+      <span class="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-100/90 border border-emerald-300 px-2.5 py-1 rounded-full shadow-sm">
+        <span class="w-3.5 h-3.5 inline-flex items-center justify-center" id="brand-leaf-icon"></span>
+        <span>Magical Garden</span>
+      </span>
+    </div>
+
+    <!-- Sound & Language Switch -->
+    <div class="flex items-center gap-2">
+      <button id="btn-sound-toggle" class="btn-bubble p-2 rounded-full bg-white border-2 border-sky-300 text-sky-700 hover:bg-sky-50 transition" aria-label="Toggle Sound">
+        <svg id="icon-sound-on" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" fill-opacity="0.25"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+        <svg id="icon-sound-off" class="w-5 h-5 hidden text-slate-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" fill-opacity="0.25"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+      </button>
+
+      <button id="btn-lang-toggle" class="btn-bubble px-3 py-1.5 rounded-full bg-white border-2 border-purple-300 text-purple-700 font-bold text-xs md:text-sm flex items-center gap-1.5 hover:bg-purple-50 transition">
+        <span id="lang-flag" class="flex items-center justify-center"></span>
+        <span id="lang-label">BM</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- SCREEN 1: FRONT SCREEN (CARA BERMAIN / HOW TO PLAY + START) -->
+  <main id="screen-home" class="w-full max-w-xl mx-auto px-4 py-3 flex-1 flex flex-col justify-center items-center z-10 my-auto">
+    <div class="w-full glass-garden-card rounded-3xl p-5 sm:p-7 text-center border-4 border-amber-200 shadow-xl relative">
+      
+      <!-- Mascot Container: Koala Greeting -->
+      <div class="mascot-container w-24 h-24 md:w-32 md:h-32 mx-auto -mt-10 mb-1 animate-koala-idle drop-shadow-md">
+        <div id="koala-mascot-home"></div>
+      </div>
+
+      <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-900 font-extrabold px-3.5 py-1 rounded-full text-xs mb-1.5 border border-amber-200">
+        <span class="w-3.5 h-3.5 flex items-center justify-center text-amber-600" id="badge-sparkle-icon"></span>
+        <span data-i18n="badge_how_to_play">Panduan & Cara Main</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800 mb-1 leading-tight" data-i18n="home_title">Mari Belajar Tracing!</h1>
+      <p class="text-xs sm:text-sm text-slate-600 mb-4 font-semibold leading-relaxed max-w-md mx-auto" data-i18n="home_subtitle">
+        Ikut 3 langkah mudah di bawah untuk menjejak huruf di Taman Ajaib bersama Chibi Koala!
+      </p>
+
+      <!-- 3 VISUAL HOW-TO-PLAY CARDS -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-5 text-left">
+        <!-- Step 1 -->
+        <div class="bg-gradient-to-b from-rose-50 to-pink-50/60 p-3 rounded-2xl border-2 border-pink-200 shadow-sm flex sm:flex-col items-center sm:items-start gap-2.5 sm:gap-1.5">
+          <div class="w-10 h-10 rounded-xl bg-pink-100 border border-pink-300 flex items-center justify-center p-2 flex-shrink-0 shadow-inner" id="step1-svg-icon"></div>
+          <div>
+            <div class="font-extrabold text-xs text-pink-900" data-i18n="step1_title">1. Titik Mula</div>
+            <div class="text-[11px] text-slate-600 font-semibold leading-snug mt-0.5" data-i18n="step1_desc">
+              Sentuh bulatan merah untuk memulakan garisan.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-gradient-to-b from-sky-50 to-blue-50/60 p-3 rounded-2xl border-2 border-sky-200 shadow-sm flex sm:flex-col items-center sm:items-start gap-2.5 sm:gap-1.5">
+          <div class="w-10 h-10 rounded-xl bg-sky-100 border border-sky-300 flex items-center justify-center p-2 flex-shrink-0 shadow-inner" id="step2-svg-icon"></div>
+          <div>
+            <div class="font-extrabold text-xs text-sky-900" data-i18n="step2_title">2. Ikut Laluan</div>
+            <div class="text-[11px] text-slate-600 font-semibold leading-snug mt-0.5" data-i18n="step2_desc">
+              Seret jari atau tetikus mengikut titik putus-putus.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-gradient-to-b from-amber-50 to-yellow-50/60 p-3 rounded-2xl border-2 border-amber-200 shadow-sm flex sm:flex-col items-center sm:items-start gap-2.5 sm:gap-1.5">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center p-2 flex-shrink-0 shadow-inner" id="step3-svg-icon"></div>
+          <div>
+            <div class="font-extrabold text-xs text-amber-900" data-i18n="step3_title">3. Bintang & Skor</div>
+            <div class="text-[11px] text-slate-600 font-semibold leading-snug mt-0.5" data-i18n="step3_desc">
+              Lengkapkan huruf untuk dengar bunyi ceria & dapat 10 mata!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings: Mode Huruf (Uppercase, Lowercase, Mixed) -->
+      <div class="mb-4 text-left">
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1" data-i18n="label_choose_mode">Pilih Jenis Huruf:</label>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" data-letter-mode="upper" class="mode-select-btn btn-bubble py-2 px-2 rounded-2xl bg-amber-400 text-slate-900 border-2 border-amber-300 font-extrabold text-xs md:text-sm text-center shadow-sm">
+            ABC<br><span class="text-[10px] font-semibold opacity-90" data-i18n="mode_upper">Huruf Besar</span>
+          </button>
+          <button type="button" data-letter-mode="lower" class="mode-select-btn btn-bubble py-2 px-2 rounded-2xl bg-white text-slate-700 border-2 border-slate-200 font-extrabold text-xs md:text-sm text-center shadow-sm">
+            abc<br><span class="text-[10px] font-semibold opacity-90" data-i18n="mode_lower">Huruf Kecil</span>
+          </button>
+          <button type="button" data-letter-mode="mixed" class="mode-select-btn btn-bubble py-2 px-2 rounded-2xl bg-white text-slate-700 border-2 border-slate-200 font-extrabold text-xs md:text-sm text-center shadow-sm">
+            Aa Bb<br><span class="text-[10px] font-semibold opacity-90" data-i18n="mode_mixed">Campur</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Settings: Bilangan Huruf (5, 10, 20, Bebas) -->
+      <div class="mb-5 text-left">
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1" data-i18n="label_question_count">Jumlah Huruf:</label>
+        <div class="grid grid-cols-4 gap-2">
+          <button type="button" data-q-count="5" class="q-count-btn btn-bubble py-2 px-1 rounded-xl bg-pink-500 text-white font-extrabold text-xs md:text-sm border-2 border-pink-400">5</button>
+          <button type="button" data-q-count="10" class="q-count-btn btn-bubble py-2 px-1 rounded-xl bg-white text-slate-700 font-extrabold text-xs md:text-sm border-2 border-slate-200">10</button>
+          <button type="button" data-q-count="20" class="q-count-btn btn-bubble py-2 px-1 rounded-xl bg-white text-slate-700 font-extrabold text-xs md:text-sm border-2 border-slate-200">20</button>
+          <button type="button" data-q-count="infinity" class="q-count-btn btn-bubble py-2 px-1 rounded-xl bg-white text-purple-700 font-extrabold text-xs border-2 border-purple-200" data-i18n="count_free">Bebas</button>
+        </div>
+      </div>
+
+      <!-- Main Action Button -->
+      <div>
+        <button id="btn-play-game" type="button" class="btn-bubble btn-play-primary w-full py-4 px-6 rounded-2xl font-extrabold text-base md:text-lg flex items-center justify-center gap-3">
+          <span class="w-7 h-7 flex items-center justify-center animate-bounce flex-shrink-0" id="play-rocket-icon"></span>
+          <span id="btn-play-text" data-i18n="btn_start_play" class="font-extrabold text-white text-base md:text-lg tracking-wide drop-shadow-sm">MULA MAIN SEKARANG!</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- SCREEN 2: GAMEPLAY SCREEN -->
+  <main id="screen-game" class="hidden w-full max-w-4xl mx-auto px-3 py-2 flex-1 flex flex-col z-10">
+    
+    <!-- Top HUD Bar -->
+    <div class="flex items-center justify-between bg-white/95 backdrop-blur rounded-2xl px-4 py-2 mb-2 shadow-md border-2 border-sky-200">
+      <div class="flex items-center gap-2">
+        <button id="btn-exit-game" class="btn-bubble px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 font-extrabold text-xs flex items-center gap-1 border border-slate-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+          <span data-i18n="btn_exit">Keluar</span>
+        </button>
+        <span class="text-xs font-bold text-slate-300">|</span>
+        <span id="hud-progress" class="font-extrabold text-xs md:text-sm text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+          Huruf 1 / 5
+        </span>
+      </div>
+
+      <!-- Word Picture Clue Badge -->
+      <div id="hud-word-badge" class="hidden sm:flex items-center gap-2 bg-pink-50 border border-pink-200 px-3.5 py-1 rounded-full shadow-inner">
+        <div id="hud-word-icon" class="w-7 h-7 flex items-center justify-center flex-shrink-0"></div>
+        <span id="hud-word-text" class="text-xs font-extrabold text-pink-700 uppercase">A - Ayam</span>
+      </div>
+
+      <!-- Live Score Badge -->
+      <div class="flex items-center gap-1.5 bg-amber-100/90 border-2 border-amber-300 px-3.5 py-1 rounded-full shadow-sm">
+        <span class="w-5 h-5 flex items-center justify-center" id="hud-score-star-icon"></span>
+        <span class="text-xs text-amber-900 font-bold" data-i18n="label_score">Mata:</span>
+        <span id="hud-score-val" class="font-extrabold text-sm md:text-base text-amber-900">0</span>
+      </div>
+    </div>
+
+    <!-- Instruction & Clear Controls Banner -->
+    <div class="flex items-center justify-between bg-amber-100/95 border-2 border-amber-300 rounded-2xl px-3.5 py-1.5 mb-2 text-center text-amber-950 font-bold text-xs md:text-sm shadow-sm">
+      <span class="mx-auto flex items-center gap-2">
+        <span class="w-5 h-5 flex items-center justify-center" id="instruction-finger-icon"></span>
+        <span id="instruction-banner-text">Ikut garisan untuk tulis huruf A!</span>
+      </span>
+      <button id="btn-clear-canvas" class="btn-bubble ml-2 px-3 py-1 bg-white text-slate-700 rounded-xl text-xs font-extrabold border-2 border-amber-300 hover:bg-amber-50 flex items-center gap-1.5" title="Lukis Semula">
+        <span class="w-4 h-4 flex items-center justify-center" id="clear-canvas-icon"></span>
+        <span class="hidden sm:inline" data-i18n="btn_clear">Mula Semula</span>
+      </button>
+    </div>
+
+    <!-- Tracing Stage Layout -->
+    <div class="flex-1 flex flex-col md:flex-row items-center justify-center gap-3 relative min-h-[350px] max-h-[580px]">
+      
+      <!-- Side Mascot Panel -->
+      <div class="flex md:flex-col items-center justify-center gap-2 w-full md:w-44 order-2 md:order-1 bg-white/90 backdrop-blur rounded-2xl p-2.5 border-3 border-purple-200 shadow-md">
+        <div class="mascot-container w-16 h-16 md:w-28 md:h-28 animate-koala-idle flex-shrink-0" id="mascot-gameplay-wrap">
+          <div id="koala-mascot-game"></div>
+        </div>
+        <div class="text-center">
+          <div id="koala-speech-bubble" class="bg-purple-100 text-purple-900 text-[11px] md:text-xs font-extrabold px-3 py-1.5 rounded-xl border border-purple-200 inline-block shadow-sm">
+            Bagus! Teruskan tracing
+          </div>
+          <div class="sm:hidden flex items-center justify-center gap-1.5 mt-1 bg-pink-100/80 rounded-full px-2.5 py-0.5 border border-pink-200">
+            <span id="mobile-word-icon" class="w-5 h-5 flex items-center justify-center"></span>
+            <span id="mobile-word-text" class="text-[11px] font-extrabold text-pink-700">A - Ayam</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Interactive Tracing Canvas Card -->
+      <div class="order-1 md:order-2 flex-1 w-full h-full min-h-[300px] flex flex-col items-center justify-center relative p-1">
+        <div class="w-full h-full max-w-[480px] aspect-[4/5] max-h-[490px] relative glass-garden-card rounded-3xl p-3 border-4 border-white shadow-2xl flex flex-col items-center justify-center">
+          <canvas id="tracing-canvas" class="w-full h-full cursor-crosshair rounded-2xl flex-1"></canvas>
+
+          <!-- Real-Time Tracing Progress Meter -->
+          <div class="w-full px-4 pt-2 pb-1 flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-500 flex items-center gap-1">
+              <span class="w-3.5 h-3.5 inline-flex items-center justify-center" id="progress-meter-icon"></span>
+              <span data-i18n="label_progress_bar">Kemajuan:</span>
+            </span>
+            <div class="flex-1 bg-slate-200 rounded-full h-3 overflow-hidden p-0.5 border border-slate-300 shadow-inner">
+              <div id="tracing-progress-fill" class="bg-gradient-to-r from-pink-400 via-amber-400 to-emerald-400 h-full rounded-full transition-all duration-150" style="width: 0%;"></div>
+            </div>
+            <span id="tracing-progress-pct" class="text-xs font-extrabold text-emerald-700 w-9 text-right">0%</span>
+          </div>
+          
+          <!-- Soft Guidance Floating Toast -->
+          <div id="soft-hint-toast" class="pointer-events-none absolute bottom-12 px-4 py-2 bg-pink-500/95 text-white font-bold text-xs md:text-sm rounded-full shadow-lg opacity-0 transition-opacity duration-300 flex items-center gap-2 border border-white">
+            <span class="w-4 h-4 flex items-center justify-center" id="hint-toast-sparkle-icon"></span>
+            <span id="soft-hint-msg" data-i18n="hint_follow">Cuba ikut garisan</span>
+          </div>
+
+          <!-- Letter Celebration Overlay Stamp -->
+          <div id="letter-sparkle-overlay" class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm rounded-3xl opacity-0 scale-75 transition-all duration-300 z-20">
+            <div class="w-20 h-20 animate-bounce flex items-center justify-center mb-1" id="celebration-star-icon"></div>
+            <div class="text-2xl md:text-3xl font-extrabold text-emerald-600 drop-shadow" data-i18n="celebrate_letter">Hebat! +10</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- SCREEN 3: RESULT SCREEN -->
+  <main id="screen-result" class="hidden w-full max-w-lg mx-auto px-4 py-4 flex-1 flex flex-col justify-center items-center z-10 my-auto">
+    <div class="w-full glass-garden-card rounded-3xl p-6 md:p-8 text-center border-4 border-emerald-300 shadow-2xl relative overflow-hidden">
+      
+      <!-- Cheering Mascot -->
+      <div class="mascot-container w-32 h-32 md:w-40 md:h-40 mx-auto -mt-6 mb-2 animate-koala-happy drop-shadow-xl">
+        <div id="koala-mascot-result"></div>
+      </div>
+
+      <div class="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 font-extrabold px-4 py-1.5 rounded-full text-sm mb-2 border border-emerald-300">
+        <span class="w-4 h-4 flex items-center justify-center" id="result-confetti-icon"></span>
+        <span id="result-praise" data-i18n="praise_great">Hebat Sekali!</span>
+      </div>
+
+      <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-1" data-i18n="result_congrats">
+        Tahniah, Kawan Pintar!
+      </h2>
+      <p class="text-xs md:text-sm text-slate-600 mb-6 font-semibold" data-i18n="result_sub">Kamu telah berjaya melengkapkan aktiviti menjejak huruf di Taman Ajaib!</p>
+
+      <!-- Score Summary Cards -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-2xl border-2 border-amber-200 shadow-sm flex flex-col items-center">
+          <div class="w-10 h-10 mb-1 flex items-center justify-center" id="result-trophy-icon"></div>
+          <div class="text-xs font-bold text-amber-700" data-i18n="label_total_score">Jumlah Mata</div>
+          <div id="result-total-score" class="text-2xl md:text-3xl font-extrabold text-amber-900">100</div>
+        </div>
+        <div class="bg-gradient-to-br from-sky-50 to-blue-50 p-4 rounded-2xl border-2 border-sky-200 shadow-sm flex flex-col items-center">
+          <div class="w-10 h-10 mb-1 flex items-center justify-center" id="result-pencil-icon"></div>
+          <div class="text-xs font-bold text-sky-700" data-i18n="label_letters_traced">Huruf Selesai</div>
+          <div id="result-letters-count" class="text-2xl md:text-3xl font-extrabold text-sky-900">10</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-3">
+        <button id="btn-play-again" class="btn-bubble w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 text-white font-extrabold text-base flex items-center justify-center gap-2 border-2 border-emerald-400 shadow-md">
+          <span class="w-5 h-5 flex items-center justify-center" id="play-again-loop-icon"></span>
+          <span data-i18n="btn_play_again">Main Lagi</span>
+        </button>
+
+        <button id="btn-back-home" class="btn-bubble w-full py-3 px-6 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 flex items-center justify-center gap-2">
+          <span class="w-4 h-4 flex items-center justify-center text-slate-600" id="back-home-house-icon"></span>
+          <span data-i18n="btn_home">Menu Utama</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-2.5 text-center text-xs font-bold text-slate-600 bg-white/75 backdrop-blur-sm border-t border-white/80 z-20">
+    Kinder Klub | All Rights Reserved
+  </footer>
+
+  <!-- Koala Vector Engine (Opaque, Solid Colors to prevent CSS hidden defs bug) -->
+  <script>
+    function createKoalaSVG(pose = 'idle') {
+      const isHappy = pose === 'happy';
+      
+      const armRightTransform = isHappy 
+        ? 'translate(67, 50) rotate(-48)' 
+        : 'translate(67, 56) rotate(0)';
+      
+      const armLeftTransform = isHappy
+        ? 'translate(23, 50) rotate(48)'
+        : 'translate(23, 56) rotate(0)';
+
+      return `
+        <svg viewBox="0 0 100 100" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left Ear -->
+          <g>
+            <circle cx="23" cy="29" r="16" fill="#9CA8B8" stroke="#6F7C8D" stroke-width="1.8"/>
+            <circle cx="23" cy="29" r="10.5" fill="#FFAEC0"/>
+            <path d="M 13,27 Q 19,29 23,24 Q 19,33 15,34" stroke="#FFFFFF" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- Right Ear -->
+          <g>
+            <circle cx="77" cy="29" r="16" fill="#9CA8B8" stroke="#6F7C8D" stroke-width="1.8"/>
+            <circle cx="77" cy="29" r="10.5" fill="#FFAEC0"/>
+            <path d="M 87,27 Q 81,29 77,24 Q 81,33 85,34" stroke="#FFFFFF" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- Body -->
+          <ellipse cx="50" cy="73" rx="22" ry="18" fill="#8E9AA8" stroke="#6F7C8D" stroke-width="1.8"/>
+          <!-- Cream Belly -->
+          <ellipse cx="50" cy="74" rx="14" ry="12" fill="#F4F7FB"/>
+
+          <!-- Feet -->
+          <ellipse cx="36" cy="88" rx="7" ry="5" fill="#7C8896"/>
+          <ellipse cx="64" cy="88" rx="7" ry="5" fill="#7C8896"/>
+          <circle cx="36" cy="88" r="3.2" fill="#FFCCD5"/>
+          <circle cx="64" cy="88" r="3.2" fill="#FFCCD5"/>
+
+          <!-- Arms / Paws -->
+          <g transform="${armLeftTransform}" class="${isHappy ? '' : 'koala-paw-wave'}">
+            <ellipse cx="0" cy="0" rx="6.5" ry="10" fill="#9CA8B8" stroke="#6F7C8D" stroke-width="1.5"/>
+            <circle cx="0" cy="5" r="3" fill="#FFD6DF"/>
+          </g>
+          <g transform="${armRightTransform}">
+            <ellipse cx="0" cy="0" rx="6.5" ry="10" fill="#9CA8B8" stroke="#6F7C8D" stroke-width="1.5"/>
+            <circle cx="0" cy="5" r="3" fill="#FFD6DF"/>
+          </g>
+
+          <!-- Head -->
+          <circle cx="50" cy="46" r="23.5" fill="#A2AFBF" stroke="#6F7C8D" stroke-width="1.8"/>
+
+          <!-- Forehead Soft Highlight -->
+          <ellipse cx="46" cy="33" rx="10" ry="4" fill="#FFFFFF" opacity="0.4"/>
+
+          <!-- Cheeks -->
+          <circle cx="33" cy="53" r="5.5" fill="#FF8CA3" opacity="0.85"/>
+          <circle cx="67" cy="53" r="5.5" fill="#FF8CA3" opacity="0.85"/>
+
+          <!-- Eyes -->
+          ${isHappy ? `
+            <!-- Happy Curved Eyes -->
+            <path d="M 33,43 Q 38,36 43,43" stroke="#1E242C" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M 57,43 Q 62,36 67,43" stroke="#1E242C" stroke-width="3" stroke-linecap="round" fill="none"/>
+          ` : `
+            <!-- Kawaii Chibi Eyes with Highlights -->
+            <g class="koala-eye">
+              <circle cx="38" cy="42" r="4.8" fill="#1A202C"/>
+              <circle cx="36.2" cy="40.2" r="1.8" fill="#FFFFFF"/>
+              <circle cx="39.6" cy="43.6" r="0.9" fill="#FFFFFF"/>
+
+              <circle cx="62" cy="42" r="4.8" fill="#1A202C"/>
+              <circle cx="60.2" cy="40.2" r="1.8" fill="#FFFFFF"/>
+              <circle cx="63.6" cy="43.6" r="0.9" fill="#FFFFFF"/>
+            </g>
+          `}
+
+          <!-- Big Iconic Koala Nose -->
+          <path d="M 44,41 C 43,36 57,36 56,41 C 58,51 56,57 50,57 C 44,57 42,51 44,41 Z" fill="#242B35" stroke="#161B22" stroke-width="1.2"/>
+          <ellipse cx="48" cy="41" rx="2.5" ry="1.6" fill="#7A8596" opacity="0.8"/>
+
+          <!-- Mouth -->
+          ${isHappy ? `
+            <path d="M 44,58 Q 50,68 56,58 Z" fill="#FF5376" stroke="#242B35" stroke-width="1.8" stroke-linejoin="round"/>
+          ` : `
+            <path d="M 46,59 Q 50,64 54,59" stroke="#242B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+          `}
+
+          <!-- Star Accessory on Right Ear -->
+          <path d="M 66,28 L 67.5,32 L 72,32.5 L 68.5,35.5 L 69.5,40 L 65.5,37.5 L 61.5,40 L 62.5,35.5 L 59,32.5 L 63.5,32 Z" fill="#FFD166" stroke="#FFAA00" stroke-width="1"/>
+        </svg>
+      `;
+    }
+
+    function renderKoalaMascots() {
+      const h = document.getElementById('koala-mascot-home');
+      const g = document.getElementById('koala-mascot-game');
+      const r = document.getElementById('koala-mascot-result');
+      
+      if (h) h.innerHTML = createKoalaSVG('idle');
+      if (g) g.innerHTML = createKoalaSVG('idle');
+      if (r) r.innerHTML = createKoalaSVG('happy');
+    }
+  </script>
+
+  <!-- Cute Chibi SVG Library (Replacing All Emojis with High Quality Vector Icons) -->
+  <script>
+    const SVG_ASSETS = {
+      ui: {
+        koalaFace: `
+          <svg viewBox="0 0 32 32" class="w-full h-full select-none" fill="none">
+            <circle cx="9" cy="9" r="6" fill="#9CA8B8" stroke="#6F7C8D" stroke-width="1.2"/>
+            <circle cx="9" cy="9" r="3.8" fill="#FFAEC0"/>
+            <circle cx="23" cy="9" r="6" fill="#9CA8B8" stroke="#6F7C8D" stroke-width="1.2"/>
+            <circle cx="23" cy="9" r="3.8" fill="#FFAEC0"/>
+            <circle cx="16" cy="18" r="10" fill="#A2AFBF" stroke="#6F7C8D" stroke-width="1.2"/>
+            <circle cx="11.5" cy="16" r="1.8" fill="#1A202C"/>
+            <circle cx="11" cy="15.2" r="0.7" fill="#FFFFFF"/>
+            <circle cx="20.5" cy="16" r="1.8" fill="#1A202C"/>
+            <circle cx="20" cy="15.2" r="0.7" fill="#FFFFFF"/>
+            <path d="M13.5 16 C13 14 19 14 18.5 16 C19 21 18 23 16 23 C14 23 13 21 13.5 16 Z" fill="#242B35"/>
+            <circle cx="10" cy="20.5" r="2.2" fill="#FF8CA3" opacity="0.85"/>
+            <circle cx="22" cy="20.5" r="2.2" fill="#FF8CA3" opacity="0.85"/>
+          </svg>
+        `,
+        leaf: `
+          <svg viewBox="0 0 24 24" class="w-full h-full" fill="none">
+            <path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="#10B981"/>
+            <path d="M4 20 C10 15 15 10 20 4" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        `,
+        flagMY: `
+          <svg viewBox="0 0 28 18" class="w-5 h-3.5 rounded shadow-sm overflow-hidden" fill="none">
+            <rect width="28" height="18" fill="#DC2626"/>
+            <rect y="2.5" width="28" height="2.5" fill="#FFFFFF"/>
+            <rect y="7.5" width="28" height="2.5" fill="#FFFFFF"/>
+            <rect y="12.5" width="28" height="2.5" fill="#FFFFFF"/>
+            <rect width="14" height="10" fill="#1E3A8A"/>
+            <circle cx="7" cy="5" r="3.2" fill="#FACC15"/>
+            <circle cx="8" cy="5" r="2.6" fill="#1E3A8A"/>
+            <polygon points="8.5,5 11,4 9.5,6 11.5,7 9,6.5 8,8.5 7.5,6.5 5.5,7 7,5.5 5.5,4 7.5,4.5" fill="#FACC15"/>
+          </svg>
+        `,
+        flagEN: `
+          <svg viewBox="0 0 28 18" class="w-5 h-3.5 rounded shadow-sm overflow-hidden" fill="none">
+            <rect width="28" height="18" fill="#1E3A8A"/>
+            <path d="M0,0 L28,18 M28,0 L0,18" stroke="#FFFFFF" stroke-width="3"/>
+            <path d="M0,0 L28,18 M28,0 L0,18" stroke="#DC2626" stroke-width="1.5"/>
+            <rect x="11.5" y="0" width="5" height="18" fill="#FFFFFF"/>
+            <rect x="0" y="6.5" width="28" height="5" fill="#FFFFFF"/>
+            <rect x="12.5" y="0" width="3" height="18" fill="#DC2626"/>
+            <rect x="0" y="7.5" width="28" height="3" fill="#DC2626"/>
+          </svg>
+        `,
+        sparkle: `
+          <svg viewBox="0 0 24 24" class="w-full h-full" fill="currentColor">
+            <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z"/>
+          </svg>
+        `,
+        startDot: `
+          <svg viewBox="0 0 28 28" class="w-full h-full" fill="none">
+            <circle cx="14" cy="14" r="12" fill="#FFE4E6" stroke="#FDA4AF" stroke-width="2"/>
+            <circle cx="14" cy="14" r="7" fill="#FF5376"/>
+            <circle cx="12" cy="12" r="2" fill="#FFFFFF"/>
+          </svg>
+        `,
+        pencil: `
+          <svg viewBox="0 0 28 28" class="w-full h-full" fill="none">
+            <path d="M5 19 L8 22 L22 8 L19 5 Z" fill="#FBBF24"/>
+            <path d="M19 5 L22 8 L24 6 L21 3 Z" fill="#FB7185"/>
+            <polygon points="5,19 8,22 3,24" fill="#78350F"/>
+            <polygon points="3,24 4,22.5 4.5,23" fill="#1E293B"/>
+          </svg>
+        `,
+        star: `
+          <svg viewBox="0 0 24 24" class="w-full h-full text-amber-400 drop-shadow-sm" fill="currentColor">
+            <polygon points="12,2 15,8.5 22,9.3 17,14 18.5,21 12,17.5 5.5,21 7,14 2,9.3 9,8.5"/>
+          </svg>
+        `,
+        rocket: `
+          <svg viewBox="0 0 32 32" class="w-full h-full" fill="none">
+            <path d="M16 3 C22 8 25 15 23 23 L9 9 C11 5 13 3 16 3 Z" fill="#FFFFFF"/>
+            <path d="M16 3 C19 7 21 11 20 16 L11 7 C13 5 14 3 16 3 Z" fill="#EF4444"/>
+            <circle cx="17" cy="11" r="2.5" fill="#38BDF8"/>
+            <path d="M8 18 L4 22 L9 23 Z" fill="#F59E0B"/>
+            <path d="M18 8 L22 4 L23 9 Z" fill="#F59E0B"/>
+            <polygon points="9,23 5,28 12,26" fill="#F97316"/>
+          </svg>
+        `,
+        pointingFinger: `
+          <svg viewBox="0 0 24 24" class="w-full h-full text-amber-700 animate-pulse" fill="currentColor">
+            <path d="M4 11 L13 11 C14.5 11 15 12 15 13 C15 14 14.5 15 13 15 L8 15 C8.5 17 10 19 13 19 C17 19 19 16 19 12 C19 8 16 5 12 5 C9 5 7 7 6 9 Z"/>
+            <polygon points="4,11 7,8 7,14"/>
+          </svg>
+        `,
+        reload: `
+          <svg viewBox="0 0 24 24" class="w-full h-full text-amber-700" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+            <path d="M20 11 A8 8 0 1 0 19.2 15"/>
+            <polyline points="20 7 20 11 16 11"/>
+          </svg>
+        `,
+        celebrateStar: `
+          <svg viewBox="0 0 64 64" class="w-full h-full text-yellow-400 drop-shadow-lg" fill="currentColor">
+            <polygon points="32,4 40,21 59,23 45,36 49,55 32,45 15,55 19,36 5,23 24,21"/>
+            <circle cx="27" cy="27" r="3" fill="#78350F"/>
+            <circle cx="37" cy="27" r="3" fill="#78350F"/>
+            <path d="M28 34 Q32 39 36 34" stroke="#78350F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        `,
+        confetti: `
+          <svg viewBox="0 0 32 32" class="w-full h-full" fill="none">
+            <polygon points="6,26 13,22 8,16" fill="#F43F5E"/>
+            <path d="M12 18 L24 6 M14 22 L26 10 M8 12 L20 4" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="22" cy="7" r="1.8" fill="#38BDF8"/>
+            <circle cx="25" cy="14" r="1.8" fill="#10B981"/>
+          </svg>
+        `,
+        trophy: `
+          <svg viewBox="0 0 32 32" class="w-full h-full" fill="none">
+            <path d="M8 6 L24 6 C24 14 20 18 16 18 C12 18 8 14 8 6 Z" fill="#FBBF24" stroke="#F59E0B" stroke-width="1.5"/>
+            <path d="M8 8 C4 8 4 14 8 15" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <path d="M24 8 C28 8 28 14 24 15" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <rect x="14" y="18" width="4" height="6" fill="#F59E0B"/>
+            <rect x="9" y="24" width="14" height="4" rx="2" fill="#D97706"/>
+          </svg>
+        `,
+        home: `
+          <svg viewBox="0 0 24 24" class="w-full h-full" fill="currentColor">
+            <path d="M12 3 L3 11 H6 V20 H10 V14 H14 V20 H18 V11 H21 Z"/>
+          </svg>
+        `
+      },
+      letters: {
+        A: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M20 12 C18 6 12 7 12 11 C8 15 8 28 14 34 C17 37 19 37 20 36 C21 37 23 37 26 34 C32 28 32 15 28 11 C28 7 22 6 20 12 Z" fill="#EF4444"/><ellipse cx="16" cy="18" rx="2.5" ry="5" fill="#F87171" opacity="0.6"/><path d="M20 12 C20 7 23 4 25 3" stroke="#78350F" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M22 6 C27 4 30 7 29 10 C25 11 23 9 22 6 Z" fill="#22C55E"/></svg>`,
+        B: `<svg viewBox="0 0 40 40" class="w-full h-full"><circle cx="20" cy="20" r="16" fill="#38BDF8"/><path d="M 20,4 A 16,16 0 0,0 20,36 A 16,16 0 0,1 20,4 Z" fill="#F43F5E"/><path d="M 4,20 A 16,16 0 0,0 36,20 A 16,16 0 0,1 4,20 Z" fill="#FBBF24"/><circle cx="20" cy="20" r="16" stroke="#FFFFFF" stroke-width="2.5" fill="none"/><circle cx="16" cy="15" r="3" fill="#FFFFFF" opacity="0.45"/></svg>`,
+        C: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M9 16 L11 31 C11 35 15 37 20 37 C25 37 29 35 29 31 L31 16 Z" fill="#F472B6"/><path d="M29 19 C34 19 36 26 30 28" stroke="#EC4899" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M7 16 L33 16" stroke="#DB2777" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="25" r="3" fill="#FFFFFF"/><path d="M16 11 Q17 7 16 4 M24 11 Q25 7 24 4" stroke="#F472B6" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`,
+        D: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M6 34 C6 18 18 6 34 6 C34 22 22 34 6 34 Z" fill="#10B981"/><path d="M6 34 C16 26 24 18 34 6" stroke="#047857" stroke-width="2.5" stroke-linecap="round"/><path d="M15 22 Q21 24 26 21 M21 16 Q26 18 30 14" stroke="#047857" stroke-width="2" stroke-linecap="round"/></svg>`,
+        E: `<svg viewBox="0 0 40 40" class="w-full h-full"><circle cx="20" cy="22" r="13" fill="#93C5FD"/><circle cx="9" cy="18" r="7" fill="#60A5FA"/><circle cx="9" cy="18" r="4" fill="#F472B6"/><circle cx="31" cy="18" r="7" fill="#60A5FA"/><circle cx="31" cy="18" r="4" fill="#F472B6"/><circle cx="16" cy="20" r="2" fill="#1E293B"/><circle cx="24" cy="20" r="2" fill="#1E293B"/><path d="M20 24 C19 30 23 33 26 31 C27 30 26 28 24 28" stroke="#3B82F6" stroke-width="3.5" stroke-linecap="round" fill="none"/></svg>`,
+        F: `<svg viewBox="0 0 40 40" class="w-full h-full"><ellipse cx="18" cy="20" rx="13" ry="10" fill="#FB923C"/><path d="M29 20 L37 13 L35 20 L37 27 Z" fill="#F97316"/><circle cx="12" cy="17" r="2.5" fill="#1E293B"/><circle cx="11" cy="16" r="1" fill="#FFFFFF"/><circle cx="13" cy="23" r="2" fill="#FDBA74"/><path d="M18 20 C19 23 21 23 22 20" stroke="#EA580C" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`,
+        G: `<svg viewBox="0 0 40 40" class="w-full h-full"><ellipse cx="20" cy="22" rx="12" ry="14" fill="#FBBF24"/><circle cx="12" cy="8" r="3" fill="#D97706"/><line x1="13" y1="10" x2="16" y2="15" stroke="#D97706" stroke-width="3"/><circle cx="28" cy="8" r="3" fill="#D97706"/><line x1="27" y1="10" x2="24" y2="15" stroke="#D97706" stroke-width="3"/><circle cx="15" cy="19" r="2" fill="#1E293B"/><circle cx="25" cy="19" r="2" fill="#1E293B"/><ellipse cx="20" cy="28" rx="8" ry="5" fill="#FDE68A"/><ellipse cx="17" cy="27" rx="1.5" ry="1" fill="#78350F"/><ellipse cx="23" cy="27" rx="1.5" ry="1" fill="#78350F"/></svg>`,
+        H: `<svg viewBox="0 0 40 40" class="w-full h-full"><ellipse cx="20" cy="28" rx="17" ry="5" fill="#FDE047"/><path d="M11 26 C11 15 29 15 29 26 Z" fill="#FACC15"/><path d="M11 25 Q20 27 29 25" stroke="#EC4899" stroke-width="3" fill="none"/><circle cx="20" cy="25" r="2.5" fill="#F43F5E"/></svg>`,
+        I: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M14 20 L20 37 L26 20 Z" fill="#D97706"/><circle cx="20" cy="16" r="9" fill="#F472B6"/><circle cx="15" cy="18" r="4" fill="#F472B6"/><circle cx="25" cy="18" r="4" fill="#F472B6"/><circle cx="20" cy="7" r="3" fill="#EF4444"/><circle cx="17" cy="14" r="1" fill="#FEF08A"/><circle cx="23" cy="13" r="1" fill="#38BDF8"/></svg>`,
+        J: `<svg viewBox="0 0 40 40" class="w-full h-full"><rect x="11" y="14" width="18" height="21" rx="5" fill="#FB7185"/><rect x="13" y="10" width="14" height="5" rx="2" fill="#F43F5E"/><path d="M10 13 L30 13" stroke="#BE123C" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="24" r="4.5" fill="#FFF1F2"/><path d="M19 23 L20 25 L21 23 Z" fill="#E11D48"/></svg>`,
+        K: `<svg viewBox="0 0 40 40" class="w-full h-full"><circle cx="20" cy="22" r="13" fill="#FDBA74"/><polygon points="9,14 13,7 18,13" fill="#FB923C"/><polygon points="31,14 27,7 22,13" fill="#FB923C"/><circle cx="15" cy="20" r="2" fill="#1E293B"/><circle cx="25" cy="20" r="2" fill="#1E293B"/><polygon points="19,23 21,23 20,24.5" fill="#EF4444"/><line x1="12" y1="23" x2="7" y2="22" stroke="#78350F" stroke-width="1.5"/><line x1="28" y1="23" x2="33" y2="22" stroke="#78350F" stroke-width="1.5"/></svg>`,
+        L: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M14 17 C14 10 26 10 26 17 C26 21 23 23 23 26 L17 26 C17 23 14 21 14 17 Z" fill="#FDE047"/><rect x="17" y="27" width="6" height="4" rx="1" fill="#94A3B8"/><path d="M18 32 L22 32" stroke="#64748B" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="18" r="1.5" fill="#78350F"/><circle cx="22" cy="18" r="1.5" fill="#78350F"/><path d="M18 21 Q20 23 22 21" stroke="#78350F" stroke-width="1.5" fill="none"/></svg>`,
+        M: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M26 6 C16 7 10 16 12 26 C14 34 22 38 30 34 C20 33 16 23 20 14 C22 10 25 7 26 6 Z" fill="#FACC15"/><circle cx="18" cy="20" r="1.5" fill="#78350F"/><path d="M17 23 Q19 25 21 23" stroke="#78350F" stroke-width="1.5" fill="none"/><polygon points="29,11 31,14 34,14 32,16 33,19 30,17 27,19 28,16 26,14 29,14" fill="#FDE047"/></svg>`,
+        N: `<svg viewBox="0 0 40 40" class="w-full h-full"><ellipse cx="20" cy="25" rx="10" ry="12" fill="#F59E0B"/><path d="M15 15 L20 6 L25 15" stroke="#10B981" stroke-width="3" stroke-linecap="round" fill="#34D399"/><line x1="14" y1="21" x2="26" y2="29" stroke="#D97706" stroke-width="1.5"/><line x1="14" y1="29" x2="26" y2="21" stroke="#D97706" stroke-width="1.5"/></svg>`,
+        O: `<svg viewBox="0 0 40 40" class="w-full h-full"><circle cx="20" cy="22" r="14" fill="#F97316"/><circle cx="20" cy="22" r="11" fill="#FB923C"/><circle cx="20" cy="22" r="3" fill="#FED7AA"/><path d="M20 9 C20 5 24 4 26 5 C26 9 22 10 20 9 Z" fill="#22C55E"/></svg>`,
+        P: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M11 29 C14 33 28 32 32 17 C34 11 32 7 31 7 C30 7 29 11 25 16 C20 22 14 25 11 29 Z" fill="#FACC15"/><path d="M31 7 L34 5" stroke="#854D0E" stroke-width="2" stroke-linecap="round"/></svg>`,
+        Q: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M8 29 L10 14 L16 22 L20 10 L24 22 L30 14 L32 29 Z" fill="#FBBF24"/><rect x="8" y="29" width="24" height="4" rx="2" fill="#F59E0B"/><circle cx="10" cy="14" r="2" fill="#EC4899"/><circle cx="20" cy="10" r="2.5" fill="#38BDF8"/><circle cx="30" cy="14" r="2" fill="#EC4899"/></svg>`,
+        R: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M8 28 A12 12 0 0 1 32 28" stroke="#F43F5E" stroke-width="3" fill="none"/><path d="M11 28 A9 9 0 0 1 29 28" stroke="#FBBF24" stroke-width="3" fill="none"/><path d="M14 28 A6 6 0 0 1 26 28" stroke="#38BDF8" stroke-width="3" fill="none"/><circle cx="8" cy="28" r="4" fill="#FFFFFF"/><circle cx="32" cy="28" r="4" fill="#FFFFFF"/></svg>`,
+        S: `<svg viewBox="0 0 40 40" class="w-full h-full"><circle cx="20" cy="20" r="9" fill="#FBBF24"/><g stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"><line x1="20" y1="5" x2="20" y2="8"/><line x1="20" y1="32" x2="20" y2="35"/><line x1="5" y1="20" x2="8" y2="20"/><line x1="32" y1="20" x2="35" y2="20"/><line x1="9" y1="9" x2="11" y2="11"/><line x1="29" y1="29" x2="31" y2="31"/><line x1="9" y1="31" x2="11" y2="29"/><line x1="29" y1="11" x2="31" y2="9"/></g><circle cx="17" cy="19" r="1.2" fill="#78350F"/><circle cx="23" cy="19" r="1.2" fill="#78350F"/><path d="M18 22 Q20 24 22 22" stroke="#78350F" stroke-width="1.2" fill="none"/></svg>`,
+        T: `<svg viewBox="0 0 40 40" class="w-full h-full"><rect x="17" y="24" width="6" height="12" rx="2" fill="#92400E"/><circle cx="20" cy="16" r="11" fill="#22C55E"/><circle cx="14" cy="18" r="7" fill="#16A34A"/><circle cx="26" cy="18" r="7" fill="#16A34A"/><circle cx="17" cy="15" r="2" fill="#EF4444"/><circle cx="23" cy="13" r="2" fill="#EF4444"/></svg>`,
+        U: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M8 23 C8 13 32 13 32 23 Z" fill="#A855F7"/><path d="M16 23 C16 13 24 13 24 23 Z" fill="#F472B6"/><line x1="20" y1="11" x2="20" y2="29" stroke="#6B21A8" stroke-width="2.5"/><path d="M20 29 C20 32 23 32 24 30" stroke="#6B21A8" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`,
+        V: `<svg viewBox="0 0 40 40" class="w-full h-full"><rect x="8" y="16" width="22" height="13" rx="3" fill="#38BDF8"/><path d="M24 16 L29 21 L30 29 L24 29 Z" fill="#0EA5E9"/><rect x="11" y="18" width="5" height="5" rx="1" fill="#FFFFFF"/><circle cx="14" cy="29" r="3" fill="#334155"/><circle cx="24" cy="29" r="3" fill="#334155"/><circle cx="30" cy="24" r="1.5" fill="#FBBF24"/></svg>`,
+        W: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M7 22 C10 32 30 32 33 22 Z" fill="#EF4444"/><path d="M7 22 C10 33 30 33 33 22" stroke="#22C55E" stroke-width="3" fill="none"/><circle cx="16" cy="24" r="1" fill="#1E293B"/><circle cx="20" cy="26" r="1" fill="#1E293B"/><circle cx="24" cy="24" r="1" fill="#1E293B"/></svg>`,
+        X: `<svg viewBox="0 0 40 40" class="w-full h-full"><rect x="8" y="10" width="24" height="4" rx="2" fill="#EF4444"/><rect x="10" y="16" width="20" height="4" rx="2" fill="#F59E0B"/><rect x="12" y="22" width="16" height="4" rx="2" fill="#10B981"/><rect x="14" y="28" width="12" height="4" rx="2" fill="#3B82F6"/></svg>`,
+        Y: `<svg viewBox="0 0 40 40" class="w-full h-full"><path d="M9 25 L31 25 L27 31 L13 31 Z" fill="#F97316"/><polygon points="19,10 19,23 11,23" fill="#38BDF8"/><polygon points="21,7 21,23 28,23" fill="#F43F5E"/><path d="M6 31 Q10 33 14 31 Q18 29 22 31 Q26 33 30 31 Q34 29 38 31" stroke="#0284C7" stroke-width="2" fill="none"/></svg>`,
+        Z: `<svg viewBox="0 0 40 40" class="w-full h-full"><ellipse cx="20" cy="23" rx="12" ry="11" fill="#F8FAFC" stroke="#0F172A" stroke-width="1.5"/><polygon points="12,14 13,8 17,14" fill="#0F172A"/><polygon points="28,14 27,8 23,14" fill="#0F172A"/><line x1="10" y1="21" x2="16" y2="21" stroke="#0F172A" stroke-width="2"/><line x1="30" y1="21" x2="24" y2="21" stroke="#0F172A" stroke-width="2"/><circle cx="16" cy="24" r="1.5" fill="#0F172A"/><circle cx="24" cy="24" r="1.5" fill="#0F172A"/><ellipse cx="20" cy="28" rx="5" ry="3" fill="#CBD5E1"/></svg>`
+      }
+    };
+
+    function renderAllStaticSVGs() {
+      const setHTML = (id, svg) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = svg;
+      };
+
+      setHTML('brand-koala-icon', SVG_ASSETS.ui.koalaFace);
+      setHTML('brand-leaf-icon', SVG_ASSETS.ui.leaf);
+      setHTML('badge-sparkle-icon', SVG_ASSETS.ui.sparkle);
+      setHTML('step1-svg-icon', SVG_ASSETS.ui.startDot);
+      setHTML('step2-svg-icon', SVG_ASSETS.ui.pencil);
+      setHTML('step3-svg-icon', SVG_ASSETS.ui.star);
+      setHTML('play-rocket-icon', SVG_ASSETS.ui.rocket);
+      setHTML('hud-score-star-icon', SVG_ASSETS.ui.star);
+      setHTML('instruction-finger-icon', SVG_ASSETS.ui.pointingFinger);
+      setHTML('clear-canvas-icon', SVG_ASSETS.ui.reload);
+      setHTML('progress-meter-icon', SVG_ASSETS.ui.pencil);
+      setHTML('hint-toast-sparkle-icon', SVG_ASSETS.ui.sparkle);
+      setHTML('celebration-star-icon', SVG_ASSETS.ui.celebrateStar);
+      setHTML('result-confetti-icon', SVG_ASSETS.ui.confetti);
+      setHTML('result-trophy-icon', SVG_ASSETS.ui.trophy);
+      setHTML('result-pencil-icon', SVG_ASSETS.ui.pencil);
+      setHTML('play-again-loop-icon', SVG_ASSETS.ui.reload);
+      setHTML('back-home-house-icon', SVG_ASSETS.ui.home);
+    }
+  </script>
+
+  <!-- Letter Database & Coordinate Stroke Definitions -->
+  <script>
+    const ARTWORK_DATABASE = {
+      A: { word_bm: 'Ayam', word_en: 'Apple', svg: SVG_ASSETS.letters.A },
+      B: { word_bm: 'Bola', word_en: 'Ball', svg: SVG_ASSETS.letters.B },
+      C: { word_bm: 'Cawan', word_en: 'Cat', svg: SVG_ASSETS.letters.C },
+      D: { word_bm: 'Daun', word_en: 'Dog', svg: SVG_ASSETS.letters.D },
+      E: { word_bm: 'Epal', word_en: 'Elephant', svg: SVG_ASSETS.letters.E },
+      F: { word_bm: 'Foto', word_en: 'Fish', svg: SVG_ASSETS.letters.F },
+      G: { word_bm: 'Gajah', word_en: 'Giraffe', svg: SVG_ASSETS.letters.G },
+      H: { word_bm: 'Harimau', word_en: 'Hat', svg: SVG_ASSETS.letters.H },
+      I: { word_bm: 'Ikan', word_en: 'Ice-cream', svg: SVG_ASSETS.letters.I },
+      J: { word_bm: 'Jagung', word_en: 'Jam', svg: SVG_ASSETS.letters.J },
+      K: { word_bm: 'Kucing', word_en: 'Kite', svg: SVG_ASSETS.letters.K },
+      L: { word_bm: 'Lampu', word_en: 'Lion', svg: SVG_ASSETS.letters.L },
+      M: { word_bm: 'Mata', word_en: 'Moon', svg: SVG_ASSETS.letters.M },
+      N: { word_bm: 'Nanas', word_en: 'Nest', svg: SVG_ASSETS.letters.N },
+      O: { word_bm: 'Oren', word_en: 'Orange', svg: SVG_ASSETS.letters.O },
+      P: { word_bm: 'Pisang', word_en: 'Pencil', svg: SVG_ASSETS.letters.P },
+      Q: { word_bm: 'Quran', word_en: 'Queen', svg: SVG_ASSETS.letters.Q },
+      R: { word_bm: 'Roti', word_en: 'Rainbow', svg: SVG_ASSETS.letters.R },
+      S: { word_bm: 'Susu', word_en: 'Sun', svg: SVG_ASSETS.letters.S },
+      T: { word_bm: 'Topi', word_en: 'Tree', svg: SVG_ASSETS.letters.T },
+      U: { word_bm: 'Ular', word_en: 'Umbrella', svg: SVG_ASSETS.letters.U },
+      V: { word_bm: 'Van', word_en: 'Vase', svg: SVG_ASSETS.letters.V },
+      W: { word_bm: 'Wang', word_en: 'Watermelon', svg: SVG_ASSETS.letters.W },
+      X: { word_bm: 'X-ray', word_en: 'Xylophone', svg: SVG_ASSETS.letters.X },
+      Y: { word_bm: 'Yoyo', word_en: 'Yacht', svg: SVG_ASSETS.letters.Y },
+      Z: { word_bm: 'Zebra', word_en: 'Zoo', svg: SVG_ASSETS.letters.Z }
+    };
+
+    // Helper functions for generating mathematically smooth, non-angular curves
+    function makeLine(p0, p1, steps = 8) {
+      const pts = [];
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        pts.push({
+          x: +(p0.x + (p1.x - p0.x) * t).toFixed(1),
+          y: +(p0.y + (p1.y - p0.y) * t).toFixed(1)
+        });
+      }
+      return pts;
+    }
+
+    function makeArc(cx, cy, rx, ry, startAngle, endAngle, steps = 24) {
+      const pts = [];
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const theta = startAngle + (endAngle - startAngle) * t;
+        pts.push({
+          x: +(cx + rx * Math.cos(theta)).toFixed(1),
+          y: +(cy + ry * Math.sin(theta)).toFixed(1)
+        });
+      }
+      return pts;
+    }
+
+    function makeBezier(p0, p1, p2, p3, steps = 18) {
+      const pts = [];
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const mt = 1 - t;
+        const x = mt*mt*mt*p0.x + 3*mt*mt*t*p1.x + 3*mt*t*t*p2.x + t*t*t*p3.x;
+        const y = mt*mt*mt*p0.y + 3*mt*mt*t*p1.y + 3*mt*t*t*p2.y + t*t*t*p3.y;
+        pts.push({ x: +x.toFixed(1), y: +y.toFixed(1) });
+      }
+      return pts;
+    }
+
+    function concatStrokes(...strokeParts) {
+      const res = [];
+      strokeParts.forEach((part, idx) => {
+        if (!part || !part.length) return;
+        if (idx > 0 && res.length > 0) {
+          res.push(...part.slice(1));
+        } else {
+          res.push(...part);
+        }
+      });
+      return res;
+    }
+
+    const LETTER_STROKES = {
+      // Uppercase Letters
+      'A': [
+        makeLine({x: 50, y: 15}, {x: 20, y: 85}, 12),
+        makeLine({x: 50, y: 15}, {x: 80, y: 85}, 12),
+        makeLine({x: 32, y: 55}, {x: 68, y: 55}, 8)
+      ],
+      'B': [
+        makeLine({x: 26, y: 15}, {x: 26, y: 85}, 12),
+        concatStrokes(
+          makeLine({x: 26, y: 15}, {x: 46, y: 15}, 4),
+          makeArc(46, 32.5, 26, 17.5, -Math.PI/2, Math.PI/2, 20),
+          makeLine({x: 46, y: 50}, {x: 26, y: 50}, 4)
+        ),
+        concatStrokes(
+          makeLine({x: 26, y: 50}, {x: 48, y: 50}, 4),
+          makeArc(48, 67.5, 28, 17.5, -Math.PI/2, Math.PI/2, 20),
+          makeLine({x: 48, y: 85}, {x: 26, y: 85}, 4)
+        )
+      ],
+      'C': [
+        makeArc(50, 50, 28, 35, -0.22 * Math.PI, -1.78 * Math.PI, 32)
+      ],
+      'D': [
+        makeLine({x: 26, y: 15}, {x: 26, y: 85}, 12),
+        concatStrokes(
+          makeLine({x: 26, y: 15}, {x: 42, y: 15}, 4),
+          makeArc(42, 50, 34, 35, -Math.PI/2, Math.PI/2, 26),
+          makeLine({x: 42, y: 85}, {x: 26, y: 85}, 4)
+        )
+      ],
+      'E': [
+        makeLine({x: 25, y: 15}, {x: 25, y: 85}, 12),
+        makeLine({x: 25, y: 15}, {x: 75, y: 15}, 8),
+        makeLine({x: 25, y: 50}, {x: 65, y: 50}, 6),
+        makeLine({x: 25, y: 85}, {x: 75, y: 85}, 8)
+      ],
+      'F': [
+        makeLine({x: 25, y: 15}, {x: 25, y: 85}, 12),
+        makeLine({x: 25, y: 15}, {x: 75, y: 15}, 8),
+        makeLine({x: 25, y: 50}, {x: 60, y: 50}, 6)
+      ],
+      'G': [
+        makeArc(50, 50, 28, 35, -0.22 * Math.PI, -1.78 * Math.PI, 30),
+        makeLine({x: 76, y: 52}, {x: 52, y: 52}, 6)
+      ],
+      'H': [
+        makeLine({x: 25, y: 15}, {x: 25, y: 85}, 12),
+        makeLine({x: 75, y: 15}, {x: 75, y: 85}, 12),
+        makeLine({x: 25, y: 50}, {x: 75, y: 50}, 8)
+      ],
+      'I': [
+        makeLine({x: 35, y: 15}, {x: 65, y: 15}, 6),
+        makeLine({x: 50, y: 15}, {x: 50, y: 85}, 12),
+        makeLine({x: 35, y: 85}, {x: 65, y: 85}, 6)
+      ],
+      'J': [
+        makeLine({x: 35, y: 15}, {x: 75, y: 15}, 8),
+        concatStrokes(
+          makeLine({x: 62, y: 15}, {x: 62, y: 65}, 10),
+          makeArc(44, 65, 18, 20, 0, Math.PI, 20)
+        )
+      ],
+      'K': [
+        makeLine({x: 25, y: 15}, {x: 25, y: 85}, 12),
+        makeLine({x: 75, y: 20}, {x: 28, y: 52}, 10),
+        makeLine({x: 35, y: 48}, {x: 75, y: 85}, 10)
+      ],
+      'L': [
+        concatStrokes(
+          makeLine({x: 25, y: 15}, {x: 25, y: 85}, 12),
+          makeLine({x: 25, y: 85}, {x: 75, y: 85}, 8)
+        )
+      ],
+      'M': [
+        makeLine({x: 20, y: 85}, {x: 20, y: 15}, 12),
+        makeLine({x: 20, y: 15}, {x: 50, y: 60}, 10),
+        makeLine({x: 50, y: 60}, {x: 80, y: 15}, 10),
+        makeLine({x: 80, y: 15}, {x: 80, y: 85}, 12)
+      ],
+      'N': [
+        makeLine({x: 25, y: 85}, {x: 25, y: 15}, 12),
+        makeLine({x: 25, y: 15}, {x: 75, y: 85}, 12),
+        makeLine({x: 75, y: 85}, {x: 75, y: 15}, 12)
+      ],
+      'O': [
+        makeArc(50, 50, 29, 35, -Math.PI/2, -2.5 * Math.PI, 36)
+      ],
+      'P': [
+        makeLine({x: 26, y: 15}, {x: 26, y: 85}, 12),
+        concatStrokes(
+          makeLine({x: 26, y: 15}, {x: 46, y: 15}, 4),
+          makeArc(46, 35, 27, 20, -Math.PI/2, Math.PI/2, 22),
+          makeLine({x: 46, y: 55}, {x: 26, y: 55}, 4)
+        )
+      ],
+      'Q': [
+        makeArc(50, 50, 29, 35, -Math.PI/2, -2.5 * Math.PI, 36),
+        makeBezier({x: 54, y: 64}, {x: 62, y: 72}, {x: 72, y: 82}, {x: 82, y: 88}, 10)
+      ],
+      'R': [
+        makeLine({x: 26, y: 15}, {x: 26, y: 85}, 12),
+        concatStrokes(
+          makeLine({x: 26, y: 15}, {x: 46, y: 15}, 4),
+          makeArc(46, 34, 27, 19, -Math.PI/2, Math.PI/2, 22),
+          makeLine({x: 46, y: 53}, {x: 26, y: 53}, 4)
+        ),
+        makeBezier({x: 48, y: 53}, {x: 56, y: 62}, {x: 66, y: 74}, {x: 76, y: 85}, 12)
+      ],
+      'S': [
+        concatStrokes(
+          makeBezier({x: 74, y: 28}, {x: 72, y: 15}, {x: 30, y: 15}, {x: 28, y: 34}, 18),
+          makeBezier({x: 28, y: 34}, {x: 26, y: 50}, {x: 74, y: 50}, {x: 74, y: 66}, 18),
+          makeBezier({x: 74, y: 66}, {x: 74, y: 85}, {x: 32, y: 86}, {x: 25, y: 74}, 16)
+        )
+      ],
+      'T': [
+        makeLine({x: 20, y: 15}, {x: 80, y: 15}, 10),
+        makeLine({x: 50, y: 15}, {x: 50, y: 85}, 12)
+      ],
+      'U': [
+        concatStrokes(
+          makeLine({x: 25, y: 15}, {x: 25, y: 60}, 8),
+          makeArc(50, 60, 25, 25, Math.PI, 0, 24),
+          makeLine({x: 75, y: 60}, {x: 75, y: 15}, 8)
+        )
+      ],
+      'V': [
+        makeLine({x: 20, y: 15}, {x: 50, y: 85}, 12),
+        makeLine({x: 50, y: 85}, {x: 80, y: 15}, 12)
+      ],
+      'W': [
+        makeLine({x: 18, y: 15}, {x: 32, y: 85}, 10),
+        makeLine({x: 32, y: 85}, {x: 50, y: 40}, 8),
+        makeLine({x: 50, y: 40}, {x: 68, y: 85}, 8),
+        makeLine({x: 68, y: 85}, {x: 82, y: 15}, 10)
+      ],
+      'X': [
+        makeLine({x: 25, y: 18}, {x: 75, y: 82}, 12),
+        makeLine({x: 75, y: 18}, {x: 25, y: 82}, 12)
+      ],
+      'Y': [
+        makeLine({x: 20, y: 15}, {x: 50, y: 50}, 8),
+        makeLine({x: 80, y: 15}, {x: 50, y: 50}, 8),
+        makeLine({x: 50, y: 50}, {x: 50, y: 85}, 8)
+      ],
+      'Z': [
+        concatStrokes(
+          makeLine({x: 25, y: 18}, {x: 75, y: 18}, 8),
+          makeLine({x: 75, y: 18}, {x: 25, y: 82}, 12),
+          makeLine({x: 25, y: 82}, {x: 75, y: 82}, 8)
+        )
+      ],
+
+      // Lowercase Letters
+      'a': [
+        makeArc(49, 65, 21, 20, 0, -2 * Math.PI, 30),
+        makeLine({x: 70, y: 45}, {x: 70, y: 85}, 10)
+      ],
+      'b': [
+        makeLine({x: 28, y: 15}, {x: 28, y: 85}, 12),
+        concatStrokes(
+          makeBezier({x: 28, y: 54}, {x: 36, y: 44}, {x: 68, y: 44}, {x: 72, y: 58}, 14),
+          makeArc(50, 65, 22, 20, 0, Math.PI/2, 12),
+          makeBezier({x: 50, y: 85}, {x: 38, y: 85}, {x: 28, y: 80}, {x: 28, y: 78}, 10)
+        )
+      ],
+      'c': [
+        makeArc(50, 65, 22, 20, -0.22 * Math.PI, -1.78 * Math.PI, 28)
+      ],
+      'd': [
+        makeArc(49, 65, 21, 20, 0, 2 * Math.PI, 30),
+        makeLine({x: 70, y: 15}, {x: 70, y: 85}, 12)
+      ],
+      'e': [
+        concatStrokes(
+          makeLine({x: 30, y: 64}, {x: 68, y: 64}, 6),
+          makeArc(49, 64, 21, 20, 0, -1.72 * Math.PI, 30)
+        )
+      ],
+      'f': [
+        concatStrokes(
+          makeArc(56, 30, 16, 15, 0, -Math.PI, 16),
+          makeLine({x: 40, y: 30}, {x: 40, y: 85}, 10)
+        ),
+        makeLine({x: 26, y: 46}, {x: 62, y: 46}, 6)
+      ],
+      'g': [
+        makeArc(50, 58, 20, 14, 0, -2 * Math.PI, 28),
+        concatStrokes(
+          makeLine({x: 70, y: 46}, {x: 70, y: 82}, 8),
+          makeArc(48, 82, 22, 16, 0, Math.PI, 18)
+        )
+      ],
+      'h': [
+        makeLine({x: 28, y: 15}, {x: 28, y: 85}, 12),
+        concatStrokes(
+          makeBezier({x: 28, y: 56}, {x: 34, y: 44}, {x: 66, y: 44}, {x: 72, y: 56}, 16),
+          makeLine({x: 72, y: 56}, {x: 72, y: 85}, 8)
+        )
+      ],
+      'i': [
+        makeLine({x: 50, y: 45}, {x: 50, y: 85}, 10),
+        [{x: 50, y: 24}, {x: 50, y: 26}]
+      ],
+      'j': [
+        concatStrokes(
+          makeLine({x: 60, y: 45}, {x: 60, y: 82}, 8),
+          makeArc(42, 82, 18, 16, 0, Math.PI, 18)
+        ),
+        [{x: 60, y: 24}, {x: 60, y: 26}]
+      ],
+      'k': [
+        makeLine({x: 30, y: 15}, {x: 30, y: 85}, 12),
+        makeLine({x: 68, y: 45}, {x: 32, y: 65}, 8),
+        makeLine({x: 42, y: 60}, {x: 70, y: 85}, 8)
+      ],
+      'l': [
+        makeLine({x: 50, y: 15}, {x: 50, y: 85}, 12)
+      ],
+      'm': [
+        makeLine({x: 22, y: 45}, {x: 22, y: 85}, 8),
+        concatStrokes(
+          makeBezier({x: 22, y: 56}, {x: 26, y: 44}, {x: 46, y: 44}, {x: 50, y: 56}, 16),
+          makeLine({x: 50, y: 56}, {x: 50, y: 85}, 6)
+        ),
+        concatStrokes(
+          makeBezier({x: 50, y: 56}, {x: 54, y: 44}, {x: 74, y: 44}, {x: 78, y: 56}, 16),
+          makeLine({x: 78, y: 56}, {x: 78, y: 85}, 6)
+        )
+      ],
+      'n': [
+        makeLine({x: 28, y: 45}, {x: 28, y: 85}, 8),
+        concatStrokes(
+          makeBezier({x: 28, y: 56}, {x: 34, y: 44}, {x: 66, y: 44}, {x: 72, y: 56}, 16),
+          makeLine({x: 72, y: 56}, {x: 72, y: 85}, 8)
+        )
+      ],
+      'o': [
+        makeArc(50, 65, 24, 20, -Math.PI/2, -2.5 * Math.PI, 32)
+      ],
+      'p': [
+        makeLine({x: 28, y: 45}, {x: 28, y: 98}, 10),
+        concatStrokes(
+          makeBezier({x: 28, y: 54}, {x: 36, y: 44}, {x: 68, y: 44}, {x: 72, y: 58}, 14),
+          makeArc(50, 65, 22, 20, 0, Math.PI/2, 12),
+          makeBezier({x: 50, y: 85}, {x: 38, y: 85}, {x: 28, y: 80}, {x: 28, y: 78}, 10)
+        )
+      ],
+      'q': [
+        makeArc(49, 65, 21, 20, 0, 2 * Math.PI, 30),
+        makeLine({x: 70, y: 45}, {x: 70, y: 98}, 12)
+      ],
+      'r': [
+        makeLine({x: 32, y: 45}, {x: 32, y: 85}, 8),
+        makeBezier({x: 32, y: 58}, {x: 34, y: 44}, {x: 56, y: 44}, {x: 72, y: 52}, 20)
+      ],
+      's': [
+        concatStrokes(
+          makeBezier({x: 68, y: 52}, {x: 66, y: 44}, {x: 34, y: 44}, {x: 32, y: 55}, 16),
+          makeBezier({x: 32, y: 55}, {x: 30, y: 65}, {x: 70, y: 64}, {x: 68, y: 74}, 16),
+          makeBezier({x: 68, y: 74}, {x: 66, y: 85}, {x: 34, y: 85}, {x: 28, y: 76}, 14)
+        )
+      ],
+      't': [
+        concatStrokes(
+          makeLine({x: 45, y: 22}, {x: 45, y: 74}, 8),
+          makeBezier({x: 45, y: 74}, {x: 45, y: 85}, {x: 58, y: 85}, {x: 64, y: 82}, 10)
+        ),
+        makeLine({x: 30, y: 44}, {x: 60, y: 44}, 6)
+      ],
+      'u': [
+        concatStrokes(
+          makeLine({x: 28, y: 45}, {x: 28, y: 68}, 6),
+          makeArc(49, 68, 21, 16, Math.PI, 0, 20),
+          makeLine({x: 70, y: 68}, {x: 70, y: 45}, 6)
+        ),
+        makeLine({x: 70, y: 55}, {x: 70, y: 85}, 8)
+      ],
+      'v': [
+        makeLine({x: 28, y: 45}, {x: 50, y: 85}, 10),
+        makeLine({x: 50, y: 85}, {x: 72, y: 45}, 10)
+      ],
+      'w': [
+        makeLine({x: 22, y: 45}, {x: 36, y: 85}, 8),
+        makeLine({x: 36, y: 85}, {x: 50, y: 60}, 8),
+        makeLine({x: 50, y: 60}, {x: 64, y: 85}, 8),
+        makeLine({x: 64, y: 85}, {x: 78, y: 45}, 8)
+      ],
+      'x': [
+        makeLine({x: 30, y: 48}, {x: 70, y: 85}, 10),
+        makeLine({x: 70, y: 48}, {x: 30, y: 85}, 10)
+      ],
+      'y': [
+        makeLine({x: 28, y: 45}, {x: 50, y: 76}, 8),
+        concatStrokes(
+          makeLine({x: 72, y: 45}, {x: 50, y: 76}, 8),
+          makeBezier({x: 50, y: 76}, {x: 42, y: 88}, {x: 32, y: 96}, {x: 28, y: 92}, 12)
+        )
+      ],
+      'z': [
+        concatStrokes(
+          makeLine({x: 30, y: 48}, {x: 70, y: 48}, 8),
+          makeLine({x: 70, y: 48}, {x: 30, y: 85}, 10),
+          makeLine({x: 30, y: 85}, {x: 70, y: 85}, 8)
+        )
+      ]
+    };
+
+    function samplePointsFromStrokes(strokes) {
+      const sampled = [];
+      const targetSpacing = 6.2; // uniform spacing along true arc-length
+
+      strokes.forEach((segment, sIdx) => {
+        if (!segment || segment.length < 2) return;
+
+        // Calculate cumulative arc-length distances
+        const dists = [0];
+        for (let i = 0; i < segment.length - 1; i++) {
+          const d = Math.hypot(segment[i+1].x - segment[i].x, segment[i+1].y - segment[i].y);
+          dists.push(dists[i] + d);
+        }
+        const totalDist = dists[dists.length - 1];
+        if (totalDist < 0.1) return;
+
+        // Place checkpoints uniformly along smooth path
+        const numPoints = Math.max(5, Math.round(totalDist / targetSpacing));
+
+        for (let k = 0; k <= numPoints; k++) {
+          const targetDist = (k / numPoints) * totalDist;
+
+          let segIdx = 0;
+          while (segIdx < dists.length - 1 && dists[segIdx + 1] < targetDist) {
+            segIdx++;
+          }
+
+          const segStartDist = dists[segIdx];
+          const segEndDist = dists[segIdx + 1];
+          const segSpan = segEndDist - segStartDist;
+          const t = segSpan > 0 ? (targetDist - segStartDist) / segSpan : 0;
+
+          const p1 = segment[segIdx];
+          const p2 = segment[segIdx + 1];
+
+          sampled.push({
+            x: p1.x + (p2.x - p1.x) * t,
+            y: p1.y + (p2.y - p1.y) * t,
+            strokeIndex: sIdx,
+            isStrokeStart: (k === 0),
+            hit: false
+          });
+        }
+      });
+      return sampled;
+    }
+  </script>
+
+  <!-- Localization System -->
+  <script>
+    const I18N = {
+      ms: {
+        badge_how_to_play: 'Panduan & Cara Main',
+        home_title: 'Mari Belajar Tracing!',
+        home_subtitle: 'Ikut 3 langkah mudah di bawah untuk menjejak huruf di Taman Ajaib bersama Chibi Koala!',
+        step1_title: '1. Titik Mula',
+        step1_desc: 'Sentuh bulatan merah untuk memulakan garisan.',
+        step2_title: '2. Ikut Laluan',
+        step2_desc: 'Seret jari atau tetikus mengikut titik putus-putus.',
+        step3_title: '3. Bintang & Skor',
+        step3_desc: 'Lengkapkan huruf untuk dengar bunyi ceria & dapat 10 mata!',
+        label_choose_mode: 'Pilih Jenis Huruf:',
+        mode_upper: 'Huruf Besar',
+        mode_lower: 'Huruf Kecil',
+        mode_mixed: 'Campur',
+        label_question_count: 'Jumlah Huruf:',
+        count_free: 'Bebas',
+        btn_start_play: 'MULA MAIN SEKARANG!',
+        btn_exit: 'Keluar',
+        btn_clear: 'Mula Semula',
+        label_score: 'Mata:',
+        label_progress_bar: 'Kemajuan:',
+        hint_follow: 'Cuba ikut garisan',
+        celebrate_letter: 'Hebat! +10',
+        praise_great: 'Hebat Sekali!',
+        result_congrats: 'Tahniah, Kawan Pintar!',
+        result_sub: 'Kamu telah berjaya melengkapkan aktiviti menjejak huruf di Taman Ajaib!',
+        label_total_score: 'Jumlah Mata',
+        label_letters_traced: 'Huruf Selesai',
+        btn_play_again: 'Main Lagi',
+        btn_home: 'Menu Utama',
+        speech_encouragement: 'Bagus! Teruskan tracing',
+        speech_celebrate: 'Wah, pandainya!',
+        speech_hint: 'Cuba ikut garisan comel ini ya',
+        instruction_trace_letter: (letter) => `Ikut garisan untuk tulis huruf ${letter}!`
+      },
+      en: {
+        badge_how_to_play: 'Guide & How to Play',
+        home_title: "Let's Learn Tracing!",
+        home_subtitle: 'Follow the 3 easy steps below to trace letters in the Magical Garden with Chibi Koala!',
+        step1_title: '1. Start Dot',
+        step1_desc: 'Touch the pink/red dot to begin the stroke.',
+        step2_title: '2. Follow Path',
+        step2_desc: 'Drag your finger or mouse along the dotted guide path.',
+        step3_title: '3. Stars & Score',
+        step3_desc: 'Complete the letter to hear cheerful chimes and earn 10 points!',
+        label_choose_mode: 'Select Letter Mode:',
+        mode_upper: 'Uppercase',
+        mode_lower: 'Lowercase',
+        mode_mixed: 'Mixed',
+        label_question_count: 'Number of Letters:',
+        count_free: 'Free Play',
+        btn_start_play: 'START TRACING NOW!',
+        btn_exit: 'Exit',
+        btn_clear: 'Reset',
+        label_score: 'Score:',
+        label_progress_bar: 'Progress:',
+        hint_follow: 'Follow the line!',
+        celebrate_letter: 'Amazing! +10',
+        praise_great: 'Super Star!',
+        result_congrats: 'Congratulations, Little Star!',
+        result_sub: 'You have successfully completed the letter tracing in the Magical Garden!',
+        label_total_score: 'Total Score',
+        label_letters_traced: 'Letters Completed',
+        btn_play_again: 'Play Again',
+        btn_home: 'Main Menu',
+        speech_encouragement: 'Awesome! Keep tracing',
+        speech_celebrate: 'You did it! Super star!',
+        speech_hint: 'Follow the line!',
+        instruction_trace_letter: (letter) => `Trace the letter ${letter}!`
+      }
+    };
+  </script>
+
+  <!-- Web Audio Synthesizer -->
+  <script>
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          audioCtx = new AudioContext();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    const SoundFX = {
+      tap() {
+        if (!soundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(480, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(650, ctx.currentTime + 0.07);
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.07);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.07);
+      },
+      sparkle() {
+        if (!soundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.035);
+          gain.gain.setValueAtTime(0.12, ctx.currentTime + idx * 0.035);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.035 + 0.1);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + idx * 0.035);
+          osc.stop(ctx.currentTime + idx * 0.035 + 0.1);
+        });
+      },
+      celebrate() {
+        if (!soundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const melody = [
+          { f: 523.25, d: 0.12, t: 0 },
+          { f: 659.25, d: 0.12, t: 0.11 },
+          { f: 783.99, d: 0.14, t: 0.22 },
+          { f: 1046.50, d: 0.35, t: 0.35 }
+        ];
+        melody.forEach(n => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(n.f, ctx.currentTime + n.t);
+          gain.gain.setValueAtTime(0.24, ctx.currentTime + n.t);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + n.t + n.d);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + n.t);
+          osc.stop(ctx.currentTime + n.t + n.d);
+        });
+      },
+      gentleHint() {
+        if (!soundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(340, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(380, ctx.currentTime + 0.14);
+        gain.gain.setValueAtTime(0.09, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.16);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.16);
+      }
+    };
+  </script>
+
+  <!-- Application State & Localization Logic -->
+  <script>
+    const STORAGE_LANG_KEY = 'kinder_klub_tracing_lang';
+    
+    const state = {
+      lang: 'ms',
+      letterMode: 'upper',
+      targetQuestionCount: 5,
+      currentQuestionIndex: 0,
+      score: 0,
+      lettersCompleted: 0,
+      currentLetter: 'A',
+      currentStrokes: [],
+      targetPoints: [],
+      userDrawnPoints: [],
+      isTracing: false,
+      isCompletingLetter: false,
+      lastStrayWarningTime: 0,
+      recentLettersHistory: []
+    };
+
+    function loadSavedLanguage() {
+      try {
+        const savedLang = localStorage.getItem(STORAGE_LANG_KEY);
+        if (savedLang === 'ms' || savedLang === 'en') {
+          state.lang = savedLang;
+        }
+      } catch (err) {
+        console.warn('LocalStorage error:', err);
+      }
+    }
+
+    function saveLanguage() {
+      try {
+        localStorage.setItem(STORAGE_LANG_KEY, state.lang);
+      } catch (err) {
+        console.warn('LocalStorage save error:', err);
+      }
+    }
+
+    function updateLocalization() {
+      const strings = I18N[state.lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (strings[key]) {
+          el.textContent = strings[key];
+        }
+      });
+
+      const flag = document.getElementById('lang-flag');
+      const label = document.getElementById('lang-label');
+      if (flag) {
+        flag.innerHTML = state.lang === 'ms' ? SVG_ASSETS.ui.flagMY : SVG_ASSETS.ui.flagEN;
+      }
+      if (label) label.textContent = state.lang === 'ms' ? 'BM' : 'EN';
+
+      const btnPlayText = document.getElementById('btn-play-text');
+      if (btnPlayText) {
+        btnPlayText.textContent = strings.btn_start_play;
+      }
+
+      if (state.currentLetter) {
+        const instBanner = document.getElementById('instruction-banner-text');
+        if (instBanner) {
+          instBanner.textContent = strings.instruction_trace_letter(state.currentLetter);
+        }
+      }
+    }
+  </script>
+
+  <!-- Tracing Canvas Engine -->
+  <script>
+    const canvas = document.getElementById('tracing-canvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let canvasRect = { width: 400, height: 450 };
+
+    function resizeCanvas() {
+      if (!canvas || !ctx) return;
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      canvasRect.width = rect.width;
+      canvasRect.height = rect.height;
+      drawTracingScene();
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
+
+    function toCanvasCoord(normX, normY) {
+      const padding = 34;
+      const usableW = canvasRect.width - padding * 2;
+      const usableH = canvasRect.height - padding * 2;
+      return {
+        x: padding + (normX / 100) * usableW,
+        y: padding + (normY / 100) * usableH
+      };
+    }
+
+    function drawTracingScene() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvasRect.width, canvasRect.height);
+
+      // Baseline Guidelines
+      ctx.strokeStyle = '#E2E8F0';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([5, 5]);
+
+      const pTopL = toCanvasCoord(10, 18);
+      const pTopR = toCanvasCoord(90, 18);
+      ctx.beginPath();
+      ctx.moveTo(pTopL.x, pTopL.y);
+      ctx.lineTo(pTopR.x, pTopR.y);
+      ctx.stroke();
+
+      const pMidL = toCanvasCoord(10, 50);
+      const pMidR = toCanvasCoord(90, 50);
+      ctx.beginPath();
+      ctx.moveTo(pMidL.x, pMidL.y);
+      ctx.lineTo(pMidR.x, pMidR.y);
+      ctx.stroke();
+
+      const pBotL = toCanvasCoord(10, 85);
+      const pBotR = toCanvasCoord(90, 85);
+      ctx.beginPath();
+      ctx.moveTo(pBotL.x, pBotL.y);
+      ctx.lineTo(pBotR.x, pBotR.y);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+
+      // Wide Soft Guide Path
+      if (state.currentStrokes) {
+        state.currentStrokes.forEach(segment => {
+          if (segment.length < 2) return;
+          ctx.beginPath();
+          const start = toCanvasCoord(segment[0].x, segment[0].y);
+          ctx.moveTo(start.x, start.y);
+          for (let i = 1; i < segment.length; i++) {
+            const pt = toCanvasCoord(segment[i].x, segment[i].y);
+            ctx.lineTo(pt.x, pt.y);
+          }
+          ctx.strokeStyle = '#EDF2F7';
+          ctx.lineWidth = 36;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(start.x, start.y);
+          for (let i = 1; i < segment.length; i++) {
+            const pt = toCanvasCoord(segment[i].x, segment[i].y);
+            ctx.lineTo(pt.x, pt.y);
+          }
+          ctx.strokeStyle = '#CBD5E1';
+          ctx.lineWidth = 3;
+          ctx.setLineDash([6, 7]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        });
+      }
+
+      // Checkpoints
+      const hasUnfinishedEarlierStroke = (sIdx) => {
+        return state.targetPoints.some(p => p.strokeIndex < sIdx && !p.hit);
+      };
+
+      state.targetPoints.forEach((dot) => {
+        const pos = toCanvasCoord(dot.x, dot.y);
+        ctx.beginPath();
+        if (dot.hit) {
+          ctx.fillStyle = '#10B981';
+          ctx.arc(pos.x, pos.y, 6.5, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          const isCurrentActiveStart = dot.isStrokeStart && !hasUnfinishedEarlierStroke(dot.strokeIndex);
+          ctx.fillStyle = isCurrentActiveStart ? '#FF6584' : (dot.isStrokeStart ? '#F472B6' : '#94A3B8');
+          ctx.arc(pos.x, pos.y, dot.isStrokeStart ? (isCurrentActiveStart ? 7.5 : 5.5) : 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (isCurrentActiveStart) {
+            ctx.strokeStyle = '#FFD166';
+            ctx.lineWidth = 3.5;
+            ctx.stroke();
+          }
+        }
+      });
+
+      // Rainbow Tracing Trail
+      if (state.userDrawnPoints.length > 1) {
+        for (let i = 0; i < state.userDrawnPoints.length - 1; i++) {
+          const ptA = state.userDrawnPoints[i];
+          const ptB = state.userDrawnPoints[i + 1];
+
+          if (ptB.isNewStroke) continue;
+
+          const hue = (i * 8 + 320) % 360;
+          ctx.beginPath();
+          ctx.moveTo(ptA.x, ptA.y);
+          ctx.lineTo(ptB.x, ptB.y);
+          ctx.strokeStyle = `hsl(${hue}, 92%, 58%)`;
+          ctx.lineWidth = 22;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(ptA.x, ptA.y);
+          ctx.lineTo(ptB.x, ptB.y);
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+          ctx.lineWidth = 6;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+        }
+      }
+    }
+  </script>
+
+  <!-- Interactive Tracing Controller -->
+  <script>
+    const TOLERANCE_PX = 28;
+
+    function getPointerPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function updateProgressBar() {
+      const total = state.targetPoints.length;
+      if (total === 0) return;
+      const hits = state.targetPoints.filter(p => p.hit).length;
+      const pct = Math.min(100, Math.round((hits / total) * 100));
+
+      const fill = document.getElementById('tracing-progress-fill');
+      const text = document.getElementById('tracing-progress-pct');
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.textContent = pct + '%';
+    }
+
+    function checkHitPoints(currentPos) {
+      let hitAny = false;
+      let minDistanceToAnyPath = 9999;
+
+      state.targetPoints.forEach(dot => {
+        const dotCanvas = toCanvasCoord(dot.x, dot.y);
+        const dist = Math.hypot(currentPos.x - dotCanvas.x, currentPos.y - dotCanvas.y);
+        
+        if (dist < minDistanceToAnyPath) {
+          minDistanceToAnyPath = dist;
+        }
+
+        if (dist <= TOLERANCE_PX && !dot.hit) {
+          dot.hit = true;
+          hitAny = true;
+        }
+      });
+
+      if (hitAny) {
+        SoundFX.sparkle();
+        updateProgressBar();
+      } else if (minDistanceToAnyPath > TOLERANCE_PX * 2.8) {
+        const now = Date.now();
+        if (now - state.lastStrayWarningTime > 3500) {
+          state.lastStrayWarningTime = now;
+          triggerGentleHint();
+        }
+      }
+    }
+
+    function triggerGentleHint() {
+      SoundFX.gentleHint();
+      const toast = document.getElementById('soft-hint-toast');
+      const speech = document.getElementById('koala-speech-bubble');
+      const strings = I18N[state.lang];
+
+      if (toast) {
+        toast.classList.remove('opacity-0');
+        setTimeout(() => {
+          toast.classList.add('opacity-0');
+        }, 2200);
+      }
+      if (speech) {
+        speech.textContent = strings.speech_hint;
+        setTimeout(() => {
+          speech.textContent = strings.speech_encouragement;
+        }, 2500);
+      }
+    }
+
+    function checkLetterCompletion() {
+      if (state.isCompletingLetter) return;
+      const total = state.targetPoints.length;
+      if (total === 0) return;
+
+      const totalHits = state.targetPoints.filter(p => p.hit).length;
+      const totalRatio = totalHits / total;
+
+      const numStrokes = state.currentStrokes.length;
+      let allStrokesSufficient = true;
+
+      for (let s = 0; s < numStrokes; s++) {
+        const strokePoints = state.targetPoints.filter(p => p.strokeIndex === s);
+        if (strokePoints.length > 0) {
+          const strokeHits = strokePoints.filter(p => p.hit).length;
+          const strokeRatio = strokeHits / strokePoints.length;
+          if (strokeRatio < 0.70) {
+            allStrokesSufficient = false;
+            break;
+          }
+        }
+      }
+
+      if (totalRatio >= 0.82 && allStrokesSufficient) {
+        onLetterSuccess();
+      }
+    }
+
+    function onLetterSuccess() {
+      if (state.isCompletingLetter) return;
+      state.isCompletingLetter = true;
+      
+      SoundFX.celebrate();
+      state.score += 10;
+      state.lettersCompleted += 1;
+
+      const scoreHUD = document.getElementById('hud-score-val');
+      if (scoreHUD) scoreHUD.textContent = state.score;
+
+      const fill = document.getElementById('tracing-progress-fill');
+      const text = document.getElementById('tracing-progress-pct');
+      if (fill) fill.style.width = '100%';
+      if (text) text.textContent = '100%';
+
+      const mascotGame = document.getElementById('koala-mascot-game');
+      const mascotWrap = document.getElementById('mascot-gameplay-wrap');
+      const speech = document.getElementById('koala-speech-bubble');
+      const strings = I18N[state.lang];
+
+      if (mascotGame) {
+        mascotGame.innerHTML = createKoalaSVG('happy');
+      } else if (mascotWrap) {
+        mascotWrap.innerHTML = `<div id="koala-mascot-game">${createKoalaSVG('happy')}</div>`;
+      }
+      if (speech) speech.textContent = strings.speech_celebrate;
+
+      const overlay = document.getElementById('letter-sparkle-overlay');
+      if (overlay) {
+        overlay.classList.remove('opacity-0', 'scale-75');
+        overlay.classList.add('opacity-100', 'scale-100');
+      }
+
+      setTimeout(() => {
+        if (overlay) {
+          overlay.classList.add('opacity-0', 'scale-75');
+          overlay.classList.remove('opacity-100', 'scale-100');
+        }
+        
+        const resetMascotGame = document.getElementById('koala-mascot-game');
+        if (resetMascotGame) {
+          resetMascotGame.innerHTML = createKoalaSVG('idle');
+        }
+        if (speech) speech.textContent = strings.speech_encouragement;
+
+        state.isCompletingLetter = false;
+        advanceToNextQuestion();
+      }, 1400);
+    }
+
+    if (canvas) {
+      const onStart = (e) => {
+        e.preventDefault();
+        state.isTracing = true;
+        const pos = getPointerPos(e);
+        state.userDrawnPoints.push({ x: pos.x, y: pos.y, isNewStroke: true });
+        checkHitPoints(pos);
+        drawTracingScene();
+      };
+
+      const onMove = (e) => {
+        if (!state.isTracing) return;
+        e.preventDefault();
+        const pos = getPointerPos(e);
+        state.userDrawnPoints.push({ x: pos.x, y: pos.y, isNewStroke: false });
+        checkHitPoints(pos);
+        drawTracingScene();
+      };
+
+      const onEnd = (e) => {
+        if (state.isTracing) {
+          state.isTracing = false;
+          checkLetterCompletion();
+        }
+      };
+
+      canvas.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+
+      canvas.addEventListener('touchstart', onStart, { passive: false });
+      window.addEventListener('touchmove', onMove, { passive: false });
+      window.addEventListener('touchend', onEnd);
+    }
+  </script>
+
+  <!-- Flow & Question Progression -->
+  <script>
+    const ALL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    function getRandomLetter() {
+      let pool = [...ALL_LETTERS];
+      const available = pool.filter(l => !state.recentLettersHistory.includes(l));
+      const selectionPool = available.length > 0 ? available : pool;
+      
+      const chosen = selectionPool[Math.floor(Math.random() * selectionPool.length)];
+      
+      state.recentLettersHistory.push(chosen);
+      if (state.recentLettersHistory.length > 8) {
+        state.recentLettersHistory.shift();
+      }
+
+      if (state.letterMode === 'lower') {
+        return chosen.toLowerCase();
+      } else if (state.letterMode === 'mixed') {
+        return Math.random() > 0.5 ? chosen : chosen.toLowerCase();
+      }
+      return chosen;
+    }
+
+    function setupLetterForTracing(char) {
+      state.currentLetter = char;
+      state.currentStrokes = LETTER_STROKES[char] || LETTER_STROKES['A'];
+      state.targetPoints = samplePointsFromStrokes(state.currentStrokes);
+      state.userDrawnPoints = [];
+
+      updateProgressBar();
+
+      const banner = document.getElementById('instruction-banner-text');
+      const strings = I18N[state.lang];
+      if (banner) banner.textContent = strings.instruction_trace_letter(char);
+
+      const upperChar = char.toUpperCase();
+      const clue = ARTWORK_DATABASE[upperChar] || { word_bm: upperChar, word_en: upperChar, svg: SVG_ASSETS.letters.A };
+      const wordText = state.lang === 'ms' ? clue.word_bm : clue.word_en;
+
+      const hudIcon = document.getElementById('hud-word-icon');
+      const hudText = document.getElementById('hud-word-text');
+      const mobIcon = document.getElementById('mobile-word-icon');
+      const mobText = document.getElementById('mobile-word-text');
+
+      if (hudIcon) hudIcon.innerHTML = clue.svg;
+      if (hudText) hudText.textContent = `${upperChar} - ${wordText}`;
+      if (mobIcon) mobIcon.innerHTML = clue.svg;
+      if (mobText) mobText.textContent = `${upperChar} - ${wordText}`;
+
+      const progressBadge = document.getElementById('hud-progress');
+      if (progressBadge) {
+        if (state.targetQuestionCount === 'infinity') {
+          progressBadge.textContent = state.lang === 'ms' 
+            ? `Huruf ${state.currentQuestionIndex + 1} (Bebas)` 
+            : `Letter ${state.currentQuestionIndex + 1} (Free)`;
+        } else {
+          progressBadge.textContent = state.lang === 'ms'
+            ? `Huruf ${state.currentQuestionIndex + 1} / ${state.targetQuestionCount}`
+            : `Letter ${state.currentQuestionIndex + 1} / ${state.targetQuestionCount}`;
+        }
+      }
+
+      resizeCanvas();
+    }
+
+    function advanceToNextQuestion() {
+      state.currentQuestionIndex++;
+
+      if (state.targetQuestionCount !== 'infinity' && state.currentQuestionIndex >= state.targetQuestionCount) {
+        finishGameSession();
+      } else {
+        const nextChar = getRandomLetter();
+        setupLetterForTracing(nextChar);
+      }
+    }
+
+    function finishGameSession() {
+      switchScreen('screen-result');
+
+      const strings = I18N[state.lang];
+      const totalScoreEl = document.getElementById('result-total-score');
+      const lettersCountEl = document.getElementById('result-letters-count');
+      const praiseEl = document.getElementById('result-praise');
+
+      if (totalScoreEl) totalScoreEl.textContent = state.score;
+      if (lettersCountEl) lettersCountEl.textContent = state.lettersCompleted;
+      if (praiseEl) praiseEl.textContent = strings.praise_great;
+
+      renderKoalaMascots();
+    }
+  </script>
+
+  <!-- Screen Navigation & Initialization -->
+  <script>
+    function switchScreen(screenId) {
+      ['screen-home', 'screen-game', 'screen-result'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.classList.remove('hidden');
+      }
+
+      if (screenId === 'screen-game') {
+        setTimeout(resizeCanvas, 50);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSavedLanguage();
+      renderAllStaticSVGs();
+      renderKoalaMascots();
+      updateLocalization();
+
+      // Sound Toggle
+      const btnSound = document.getElementById('btn-sound-toggle');
+      const iconOn = document.getElementById('icon-sound-on');
+      const iconOff = document.getElementById('icon-sound-off');
+
+      btnSound.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        if (soundEnabled) {
+          iconOn.classList.remove('hidden');
+          iconOff.classList.add('hidden');
+          SoundFX.tap();
+        } else {
+          iconOn.classList.add('hidden');
+          iconOff.classList.remove('hidden');
+        }
+      });
+
+      // Quick Language Toggle
+      const btnLang = document.getElementById('btn-lang-toggle');
+      btnLang.addEventListener('click', () => {
+        SoundFX.tap();
+        state.lang = state.lang === 'ms' ? 'en' : 'ms';
+        saveLanguage();
+        updateLocalization();
+      });
+
+      // Letter Mode Buttons
+      const modeButtons = document.querySelectorAll('.mode-select-btn');
+      modeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          SoundFX.tap();
+          state.letterMode = btn.getAttribute('data-letter-mode');
+          modeButtons.forEach(b => {
+            b.className = 'mode-select-btn btn-bubble py-2 px-2 rounded-2xl bg-white text-slate-700 border-2 border-slate-200 font-extrabold text-xs md:text-sm text-center shadow-sm';
+          });
+          btn.className = 'mode-select-btn btn-bubble py-2 px-2 rounded-2xl bg-amber-400 text-slate-900 border-2 border-amber-300 font-extrabold text-xs md:text-sm text-center shadow-sm';
+        });
+      });
+
+      // Question Count Buttons
+      const countButtons = document.querySelectorAll('.q-count-btn');
+      countButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          SoundFX.tap();
+          const countVal = btn.getAttribute('data-q-count');
+          state.targetQuestionCount = countVal === 'infinity' ? 'infinity' : parseInt(countVal, 10);
+          
+          countButtons.forEach(b => {
+            b.className = 'q-count-btn btn-bubble py-2 px-1 rounded-xl bg-white text-slate-700 font-extrabold text-xs md:text-sm border-2 border-slate-200';
+          });
+          btn.className = 'q-count-btn btn-bubble py-2 px-1 rounded-xl bg-pink-500 text-white font-extrabold text-xs md:text-sm border-2 border-pink-400';
+        });
+      });
+
+      // Start Tracing Game Button
+      const btnPlay = document.getElementById('btn-play-game');
+      btnPlay.addEventListener('click', () => {
+        SoundFX.celebrate();
+        state.score = 0;
+        state.lettersCompleted = 0;
+        state.currentQuestionIndex = 0;
+        state.recentLettersHistory = [];
+
+        const scoreHUD = document.getElementById('hud-score-val');
+        if (scoreHUD) scoreHUD.textContent = '0';
+
+        switchScreen('screen-game');
+        setupLetterForTracing(getRandomLetter());
+      });
+
+      // Clear Canvas
+      const btnClear = document.getElementById('btn-clear-canvas');
+      if (btnClear) {
+        btnClear.addEventListener('click', () => {
+          SoundFX.tap();
+          state.userDrawnPoints = [];
+          state.targetPoints.forEach(p => p.hit = false);
+          updateProgressBar();
+          drawTracingScene();
+        });
+      }
+
+      // Exit Game
+      const btnExit = document.getElementById('btn-exit-game');
+      if (btnExit) {
+        btnExit.addEventListener('click', () => {
+          SoundFX.tap();
+          switchScreen('screen-home');
+        });
+      }
+
+      // Play Again
+      const btnPlayAgain = document.getElementById('btn-play-again');
+      if (btnPlayAgain) {
+        btnPlayAgain.addEventListener('click', () => {
+          SoundFX.celebrate();
+          state.score = 0;
+          state.lettersCompleted = 0;
+          state.currentQuestionIndex = 0;
+          state.recentLettersHistory = [];
+
+          const scoreHUD = document.getElementById('hud-score-val');
+          if (scoreHUD) scoreHUD.textContent = '0';
+
+          switchScreen('screen-game');
+          setupLetterForTracing(getRandomLetter());
+        });
+      }
+
+      // Back Home from Result
+      const btnBackHome = document.getElementById('btn-back-home');
+      if (btnBackHome) {
+        btnBackHome.addEventListener('click', () => {
+          SoundFX.tap();
+          switchScreen('screen-home');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
