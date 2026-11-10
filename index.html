@@ -1099,8 +1099,10 @@
         makeLine({x: 25, y: 50}, {x: 60, y: 50}, 6)
       ],
       'G': [
-        makeArc(50, 50, 28, 35, -0.22 * Math.PI, -1.78 * Math.PI, 30),
-        makeLine({x: 76, y: 52}, {x: 52, y: 52}, 6)
+        concatStrokes(
+          makeArc(50, 50, 27, 35, -0.22 * Math.PI, -2.0 * Math.PI, 32),
+          makeLine({x: 77, y: 50}, {x: 52, y: 50}, 6)
+        )
       ],
       'H': [
         makeLine({x: 25, y: 15}, {x: 25, y: 85}, 12),
